@@ -29,6 +29,7 @@
     <link href="{{ asset('css/show.css') }}" rel="stylesheet">
     <link href="{{ asset('css/santri.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pendaftaran.css') }}" rel="stylesheet">
 
     @stack('styles')
 </head>
@@ -49,6 +50,7 @@
     <script src="{{ asset('js/galeri.js') }}"></script>
     <script src="{{ asset('js/produk.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/pendaftaran.js') }}"></script>
     @stack('scripts')
 
     <!-- AOS -->

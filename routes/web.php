@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CarouselController as AdminCarouselController;
 use App\Http\Controllers\HomeController as FrontendHomeController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
@@ -38,6 +40,12 @@ use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
 use App\Http\Controllers\GaleriController as FrontendGaleriController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\ProdukController as FrontendProdukController;
+use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\Admin\KategoriDonasiController;
+use App\Http\Controllers\Admin\ProgramDonasiController;
+use App\Http\Controllers\Admin\VerifikasiDonasiController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\Admin\CarouselDonasiController;
 
 
 
@@ -90,6 +98,7 @@ Route::get('/galeri', [FrontendGaleriController::class, 'index'])->name('galeri.
 
 Route::get('/produk', [FrontendProdukController::class, 'index'])->name('produk.index');
 
+Route::view('/pendaftaran', 'frontend.pendaftaran')->name('pendaftaran');
 
 // Route::get('/organisasi', function () {
 //     return view('frontend.organisasi');
@@ -103,6 +112,47 @@ Route::get('/berita', [FrontendBeritaController::class, 'index'])->name('berita.
  
 // Halaman detail berita — "Baca Selengkapnya"
 Route::get('/berita/{slug}', [FrontendBeritaController::class, 'show'])->name('berita.show');
+
+// Halaman donasi (publik)
+// Ganti 'amal-jariyah' di sini aja kalau mau ganti nama URL lagi.
+// Nama route tetep 'donasi.*' jadi route('donasi.xxx') di Blade nggak perlu diubah.
+Route::prefix('amal-jariyah')->name('donasi.')->group(function () {
+
+    Route::get('/', [DonasiController::class, 'index'])->name('index');
+    Route::get('/cek', [DonasiController::class, 'cekForm'])->name('cek-form');
+
+    // throttle:5,1 → maks 5x percobaan per 1 menit per IP, nyegah brute-force
+    // nebak kode donasi
+    Route::post('/cek', [DonasiController::class, 'cekStatus'])
+        ->middleware('throttle:5,1,donasi-cek')
+        ->name('cek-status');
+
+    Route::middleware('throttle:15,1,donasi-status')->group(function () {
+        Route::get('/status/{donasi:kode_donasi}', [DonasiController::class, 'status'])->name('status');
+        Route::get('/{donasi:kode_donasi}/upload-bukti', [DonasiController::class, 'uploadBuktiForm'])->name('upload-bukti');
+    });
+
+    Route::get('/riwayat', [DonasiController::class, 'riwayat'])->name('riwayat');
+
+    // throttle:20,10 → maks 20x resubmit per 10 menit per IP
+    Route::post('/status/{donasi:kode_donasi}/resubmit', [DonasiController::class, 'resubmit'])
+        ->middleware('throttle:20,10,donasi-resubmit')
+        ->name('resubmit');
+
+    // WAJIB paling bawah, biar /cek, /riwayat dst nggak ketangkep sebagai slug
+    Route::get('/{program:slug}', [DonasiController::class, 'show'])->name('show');
+
+    // throttle:20,10 → maks 20x submit donasi per 10 menit per IP
+    Route::post('/', [DonasiController::class, 'store'])
+        ->middleware('throttle:20,10,donasi-store')
+        ->name('store');
+});
+
+// Redirect URL lama /donasi/... → /amal-jariyah/... (GET doang)
+Route::get('/donasi/{path?}', function (Request $request, ?string $path = null) {
+    $url = '/amal-jariyah' . ($path ? '/' . $path : '');
+    return redirect($url . ($request->getQueryString() ? '?' . $request->getQueryString() : ''), 301);
+})->where('path', '.*');
 
 
 Route::middleware('auth')
@@ -255,12 +305,66 @@ Route::middleware('auth')
         Route::post('produk/update-order', [AdminProdukController::class, 'updateOrder'])->name('produk.update-order');
         Route::post('produk/{produk}/toggle-active', [AdminProdukController::class, 'toggleActive'])->name('produk.toggle-active');
         Route::resource('produk', AdminProdukController::class);
-        
+
+        // crud pendaftaran
+        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+        Route::get('/pendaftaran/export', [PendaftaranController::class, 'export'])->name('pendaftaran.export');
+        Route::get('/pendaftaran/refresh', [PendaftaranController::class, 'refresh'])->name('pendaftaran.refresh');
+
+        // ============================================================
+        // Kategori Donasi
+        // ============================================================
+        // Route custom WAJIB di atas Route::resource, biar ga ketabrak
+        // pattern {kategori_donasi} dari resource controller (show/edit).
+        Route::patch('kategori-donasi/urutan', [KategoriDonasiController::class, 'updateUrutan'])
+            ->name('kategori-donasi.urutan');
+        Route::patch('kategori-donasi/{kategori_donasi}/toggle-active', [KategoriDonasiController::class, 'toggleActive'])
+            ->name('kategori-donasi.toggle-active');
+        Route::resource('kategori-donasi', KategoriDonasiController::class);
+
+        // ============================================================
+        // Program Donasi
+        // ============================================================
+        Route::patch('program-donasi/{program_donasi}/toggle-active', [ProgramDonasiController::class, 'toggleActive'])
+            ->name('program-donasi.toggle-active');
+        Route::get('program-donasi/{program_donasi}/hapus', [ProgramDonasiController::class, 'confirmHapus'])
+            ->name('program-donasi.confirm-hapus');
+        Route::get('program-donasi/{program_donasi}/export-rekap', [ProgramDonasiController::class, 'exportRekap'])
+            ->name('program-donasi.export-rekap');
+        // restore pakai {id} biasa, bukan route-model-binding {program_donasi},
+        // karena default binding cuma nyari data yang belum di-soft-delete —
+        // padahal restore justru butuh yang sudah ke-soft-delete (di controller
+        // dicari manual pakai ProgramDonasi::onlyTrashed()->findOrFail($id)).
+        Route::patch('program-donasi/{id}/restore', [ProgramDonasiController::class, 'restore'])
+            ->name('program-donasi.restore');
+        Route::resource('program-donasi', ProgramDonasiController::class);
+
+        // ============================================================
+        // Verifikasi Donasi — dipecah 2 tab: Donasi Program (is_umum=false)
+        // dan Donasi Non Program (is_umum=true), sesuai menu di sidebar
+        // ============================================================
+        Route::get('donasi/program', [VerifikasiDonasiController::class, 'program'])
+            ->name('donasi.program');
+        Route::get('donasi/non-program', [VerifikasiDonasiController::class, 'nonProgram'])
+            ->name('donasi.non-program');
+        Route::get('donasi/{donasi}/verifikasi', [VerifikasiDonasiController::class, 'show'])
+            ->name('donasi.verifikasi');
+        Route::patch('donasi/{donasi}', [VerifikasiDonasiController::class, 'update'])
+            ->name('donasi.update');
+
+        // CAROUSEL DONASI
+        Route::resource('carousel-donasi', CarouselDonasiController::class)
+            ->except('show')
+            ->parameters(['carousel-donasi' => 'carousel_donasi']);
+
+        Route::patch('carousel-donasi/{carousel_donasi}/toggle', [CarouselDonasiController::class, 'toggle'])
+            ->name('carousel-donasi.toggle');
+
 });
 
-Route::get('/dashboard', function () {
-    return view('backend.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

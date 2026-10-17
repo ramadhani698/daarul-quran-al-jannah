@@ -1,0 +1,651 @@
+:root {
+    --donasi-frame-width: 600px;
+    --donasi-maroon: #a70e13;
+    --donasi-maroon-dark: #6e0a0d;
+    --donasi-gold: #f4c430;
+    --donasi-green: #4e733a;
+    --donasi-cream: #fdf9f0;
+    --donasi-border: #f1e9db;
+    --donasi-text: #2b1c10;
+    --donasi-text-muted: #5c4a3a;
+    --donasi-text-mutedest: #7a6f61;
+}
+
+* { box-sizing: border-box; }
+
+body.donasi-body {
+    margin: 0;
+    background: #e8e7e1;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ===== Frame — bungkus semua section jadi satu permukaan menyambung ===== */
+.donasi-frame {
+    max-width: var(--donasi-frame-width);
+    margin: 0 auto;
+    background: var(--donasi-cream);
+    min-height: 100vh;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Header (branding kecil, bukan navbar compro) ===== */
+.donasi-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--donasi-cream);
+    border-bottom: 1px solid var(--donasi-border);
+}
+.donasi-header__logo {
+    height: 50px;
+    width: 150px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.donasi-header__typebox {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid var(--donasi-border);
+    border-radius: 999px;
+    padding: 8px 14px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.donasi-header__typebox-prefix {
+    color: var(--donasi-text-mutedest);
+    font-size: 0.74rem;
+    flex-shrink: 0;
+}
+.donasi-header__typebox-word {
+    color: var(--donasi-maroon);
+    font-weight: 600;
+    font-size: 0.74rem;
+}
+.donasi-header__typebox-cursor {
+    color: var(--donasi-maroon);
+    font-weight: 600;
+    font-size: 0.8rem;
+    animation: donasi-cursor-blink 0.9s steps(1) infinite;
+}
+@keyframes donasi-cursor-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+/* ===== Topbar kontekstual ===== */
+.donasi-topbar {
+    background: var(--donasi-cream);
+    border-bottom: 1px solid var(--donasi-border);
+}
+.donasi-topbar__wrap {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 20px;
+}
+.donasi-topbar__back {
+    color: var(--donasi-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+.donasi-topbar__back:hover {
+    color: var(--donasi-maroon);
+}
+.donasi-topbar__cek-status {
+    color: var(--donasi-maroon);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.82rem;
+}
+.donasi-topbar__cek-status:hover {
+    color: var(--donasi-maroon-dark);
+}
+
+/* ===== Carousel — sekarang dikasih jarak kiri-kanan dari frame ===== */
+.donasi-carousel {
+    padding: 0 16px;
+}
+.donasi-carousel__track {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2.4 / 1;
+    overflow: hidden;
+    background: var(--donasi-border);
+    border-radius: 14px;
+}
+.donasi-carousel__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    pointer-events: none;          /* <- baru: slide nggak aktif nggak nangkep klik */
+    transition: opacity 0.5s ease;
+}
+.donasi-carousel__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;          /* <- baru: cuma slide aktif yang bisa diklik */
+}
+
+/* wrapper link nggak ikut ngatur layout, gambar tetap numpuk di track */
+.donasi-carousel__link {
+    display: contents;
+}
+.donasi-carousel__link .donasi-carousel__slide {
+    cursor: pointer;               /* cuma banner program yang kelihatan bisa diklik */
+}
+.donasi-carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 0;
+    background: var(--donasi-cream);
+}
+.donasi-carousel__dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--donasi-border);
+    cursor: pointer;
+}
+.donasi-carousel__dots span.is-active {
+    background: var(--donasi-maroon);
+}
+
+/* ===== CTA kategori — nyambung sama hero di atas & program di bawah ===== */
+.donasi-cta {
+    background: var(--donasi-cream);
+    padding: 24px 16px 8px;
+}
+.donasi-cta__wrap {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 8px;
+}
+@media (max-width: 420px) {
+    .donasi-cta__wrap {
+        grid-template-columns: 1fr;
+    }
+}
+.donasi-cta__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 6px;
+    min-width: 0;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(167, 14, 19, 0.08);
+    border: 1px solid rgba(167, 14, 19, 0.08);
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.donasi-cta__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(167, 14, 19, 0.18);
+    color: inherit;
+}
+.donasi-cta__card--disabled {
+    cursor: default;
+    opacity: 0.75;
+}
+.donasi-cta__card--disabled:hover {
+    transform: none;
+    box-shadow: 0 8px 20px rgba(167, 14, 19, 0.08);
+}
+.donasi-cta__arch {
+    width: 44px;
+    height: 52px;
+    margin: 0 auto 8px;
+    border-radius: 50% 50% 8px 8px;
+    background: linear-gradient(160deg, var(--donasi-gold), var(--donasi-maroon));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--donasi-cream);
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    overflow: hidden;
+}
+.donasi-cta__arch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.donasi-cta__name {
+    font-family: 'Lora', serif;
+    color: var(--donasi-maroon);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+.donasi-cta__soon {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.7rem;
+    color: var(--donasi-text-mutedest);
+}
+.donasi-cta__empty {
+    text-align: center;
+    color: var(--donasi-text-mutedest);
+    grid-column: 1 / -1;
+}
+
+/* ===== Hero — soft maroon family, senada sama quote card & bottom nav ===== */
+.donasi-hero {
+    padding: 0 16px;
+}
+.donasi-hero__card {
+    position: relative;
+    overflow: hidden;
+    padding: 44px 28px;
+    text-align: center;
+    background: linear-gradient(135deg, #a70e13 0%, #c84a1a 40%, #e87a3a 75%, #f4a56a 100%);
+    color: var(--donasi-cream);
+    border-radius: 14px;
+}
+.donasi-hero__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.donasi-hero__blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: donasiBlobDrift 10s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+.donasi-hero__blob-1 {
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.08);
+    top: -50px;
+    left: -40px;
+    animation-duration: 12s;
+}
+.donasi-hero__blob-2 {
+    width: 130px;
+    height: 130px;
+    background: rgba(244, 196, 48, 0.1);
+    bottom: -40px;
+    right: -30px;
+    animation-duration: 9s;
+    animation-delay: -4s;
+}
+.donasi-hero__blob-3 {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    top: 30%;
+    right: 10%;
+    animation-duration: 14s;
+    animation-delay: -7s;
+}
+@keyframes donasiBlobDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(10px, -14px) scale(1.05); }
+    66%       { transform: translate(-8px, 10px) scale(0.97); }
+}
+
+.donasi-hero__corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    opacity: 0.28;
+    pointer-events: none;
+    z-index: 1;
+}
+.donasi-hero__corner-tl {
+    top: 16px;
+    left: 16px;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+.donasi-hero__corner-tr {
+    top: 16px;
+    right: 16px;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+.donasi-hero__corner-bl {
+    bottom: 16px;
+    left: 16px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+.donasi-hero__corner-br {
+    bottom: 16px;
+    right: 16px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+.donasi-hero__inner {
+    position: relative;
+    z-index: 2;
+}
+.donasi-hero__arabic {
+    font-size: 1.25rem;
+    margin: 0 0 8px;
+    color: var(--donasi-gold);
+}
+.donasi-hero__latin {
+    font-style: italic;
+    opacity: 0.85;
+    margin: 0 0 4px;
+    font-size: 0.85rem;
+}
+.donasi-hero__translation {
+    opacity: 0.8;
+    font-size: 0.82rem;
+    margin: 0 0 22px;
+    line-height: 1.5;
+}
+.donasi-hero__title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    line-height: 1.3;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(60, 15, 10, 0.25);
+}
+
+/* ===== Program list — nyambung sama CTA di atas ===== */
+.donasi-programs {
+    background: var(--donasi-cream);
+    padding: 24px 16px 48px;
+}
+.donasi-programs__head {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.donasi-programs__eyebrow {
+    display: inline-block;
+    color: var(--donasi-green);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+}
+.donasi-programs__title {
+    font-family: 'Lora', serif;
+    color: var(--donasi-text);
+    font-size: 1.2rem;
+}
+.donasi-programs__empty {
+    text-align: center;
+    color: var(--donasi-text-mutedest);
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+}
+.donasi-programs__row { margin-bottom: 20px; }
+.donasi-programs__row:last-child { margin-bottom: 0; }
+.donasi-programs__row-title {
+    font-family: 'Lora', serif;
+    color: var(--donasi-maroon);
+    font-size: 0.95rem;
+    margin: 0 0 10px;
+}
+.donasi-program-slider .splide__list { align-items: stretch; }
+.donasi-program-slider .splide__slide { height: auto; }
+.donasi-program-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(43, 28, 16, 0.06);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.donasi-program-card__arch {
+    height: 200px;
+    background: linear-gradient(135deg, var(--donasi-gold) 0%, var(--donasi-maroon) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+}
+.donasi-program-card__arch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.donasi-program-card__body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.donasi-program-card__kategori {
+    color: var(--donasi-green);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.donasi-program-card__title {
+    font-family: 'Lora', serif;
+    color: var(--donasi-text);
+    font-size: 0.98rem;
+    margin: 6px 0;
+}
+.donasi-program-card__desc {
+    color: var(--donasi-text-muted);
+    font-size: 0.83rem;
+    margin-bottom: 14px;
+    flex: 1;
+}
+.donasi-program-card__nolimit {
+    color: var(--donasi-text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+.donasi-progress__bar {
+    height: 7px;
+    border-radius: 999px;
+    background: var(--donasi-border);
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+.donasi-progress__fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--donasi-gold), var(--donasi-maroon));
+}
+.donasi-progress__meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.73rem;
+    color: var(--donasi-text-mutedest);
+    margin-bottom: 10px;
+}
+.donasi-program-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.76rem;
+    color: var(--donasi-text-mutedest);
+    border-top: 1px solid var(--donasi-border);
+    padding-top: 10px;
+}
+.donasi-program-card__link {
+    color: var(--donasi-maroon);
+    font-weight: 600;
+    text-decoration: none;
+}
+.donasi-program-card__link:hover {
+    color: var(--donasi-maroon-dark);
+}
+
+/* ===== Quote card + ajakan penutup — senada sama hero & bottom nav ===== */
+.donasi-quote { background: var(--donasi-cream); padding: 8px 16px 32px; }
+.donasi-quote__card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #6e1810 0%, #a13a1c 100%);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.donasi-quote__card::before,
+.donasi-quote__card::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+.donasi-quote__card::before { width: 120px; height: 120px; top: -50px; left: -40px; }
+.donasi-quote__card::after { width: 90px; height: 90px; bottom: -40px; right: -30px; background: rgba(244, 196, 48, 0.08); }
+.donasi-quote__mark {
+    position: relative;
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 4px;
+}
+.donasi-quote__text {
+    position: relative;
+    color: var(--donasi-cream);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 12px;
+}
+.donasi-quote__source { position: relative; color: rgba(253, 249, 240, 0.6); font-size: 0.78rem; }
+
+.donasi-quote__closing { text-align: center; padding: 0 8px; }
+.donasi-quote__closing-title { font-family: 'Lora', serif; color: var(--donasi-maroon); font-size: 1.05rem; margin: 0 0 8px; }
+.donasi-quote__closing-desc { color: var(--donasi-text-muted); font-size: 0.85rem; line-height: 1.6; margin: 0; }
+
+/* ===== Bottom Navigation — sedikit lebih gelap dari hero, kasih "bobot" di bawah ===== */
+.donasi-frame {
+    padding-bottom: 76px;
+}
+.donasi-bottomnav {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: calc(var(--donasi-frame-width) - 32px);
+    display: flex;
+    background: linear-gradient(135deg, #a70e13 0%, #c84a1a 45%, #e87a3a 100%);
+    border-top: none;
+    border-radius: 18px;
+    box-shadow: 0 10px 26px rgba(167, 14, 19, 0.28);
+    z-index: 10;
+}
+.donasi-bottomnav__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 4px 8px;
+    text-decoration: none;
+    color: rgba(253, 249, 240, 0.65);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+.donasi-bottomnav__item:hover {
+    color: rgba(253, 249, 240, 0.85);
+}
+.donasi-bottomnav__item.is-active {
+    color: var(--donasi-gold);
+}
+.donasi-bottomnav__icon {
+    flex-shrink: 0;
+}
+
+/* ===== Footer ===== */
+.donasi-footer {
+    background: var(--donasi-cream);
+    border-top: 1px solid var(--donasi-border);
+    padding: 24px 20px 20px;
+    text-align: center;
+}
+.donasi-footer__wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+.donasi-footer__wa:hover { background: #1ebc59; color: #fff; }
+.donasi-footer__social { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; font-size: 1.1rem; }
+.donasi-footer__social a { color: var(--donasi-text-mutedest); transition: color 0.2s ease; }
+.donasi-footer__social a:hover { color: var(--donasi-maroon); }
+.donasi-footer__address { color: var(--donasi-text-mutedest); font-size: 0.76rem; line-height: 1.5; margin: 0 0 10px; }
+.donasi-footer__copy { color: var(--donasi-text-mutedest); font-size: 0.72rem; margin: 0; opacity: 0.8; }
+
+.donasi-qris {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* QRIS: diperbesar, dikasih bingkai putih biar kontras dan gampang discan */
+.donasi-qris__img {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid rgba(167, 14, 19, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(167, 14, 19, 0.1);
+}
+
+/* Tombol unduh: pill maroon dengan ikon */
+.donasi-qris__download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: var(--donasi-maroon);
+    color: var(--donasi-cream);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgba(167, 14, 19, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.donasi-qris__download:hover {
+    color: var(--donasi-cream);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(167, 14, 19, 0.28);
+}

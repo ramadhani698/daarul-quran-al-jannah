@@ -105,7 +105,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Pendaftaran</a>
+                    <a href="/pendaftaran" class="nav-link">Pendaftaran</a>
                 </li>
 
             </ul>
@@ -115,7 +115,7 @@
                 <a href="/produk" class="btn btn-keranjang" title="Produk Pesantren">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <a href="#" class="btn btn-donasi">
+                <a href="/donasi" class="btn btn-donasi" target="_blank">
                     <i class="fas fa-donate"></i>
                 </a>
             </div>
@@ -225,7 +225,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link">Pendaftaran</a>
+                <a href="/pendaftaran" class="nav-link">Pendaftaran</a>
             </li>
 
         </ul>

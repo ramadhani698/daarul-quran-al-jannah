@@ -1,0 +1,73 @@
+.riwayat-wrap {
+    padding: 20px 16px 100px;
+    background: #fdf9f0;
+} /* bawah lega biar gak ketutup bottom nav floating */
+.riwayat-title {
+    font-family: 'Lora', serif;
+    color: #a70e13;
+    margin: 0 0 4px;
+}
+.riwayat-sub {
+    color: #6b6b6b;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+.riwayat-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee3c8; 
+}
+.riwayat-avatar {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 50%;
+    background: #a70e13;
+    color: #f4c430;
+    display: grid;
+    place-items: center;
+    font-weight: 700; 
+}
+.riwayat-body {
+    flex: 1;
+    min-width: 0; 
+}
+.riwayat-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px; 
+}
+.riwayat-nominal {
+    color: #4e733a;
+    font-weight: 700; 
+}
+.riwayat-program {
+    font-size: 13px; 
+    color: #6b6b6b; 
+}
+.riwayat-doa {
+    font-style: italic; 
+    font-size: 14px; 
+    margin-top: 4px; 
+}
+.riwayat-waktu {
+    font-size: 12px; 
+    color: #999; 
+    margin-top: 4px; 
+}
+.riwayat-kosong {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+.riwayat-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+.riwayat-nav a {
+    color: #a70e13;
+    font-weight: 600;
+    text-decoration: none;
+}

@@ -1,0 +1,83 @@
+/* ===== Halaman Status Donasi ===== */
+.donasi-status { padding: 16px 16px 24px; }
+
+.donasi-status__alert { padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 0.85rem; }
+.donasi-status__alert--success { background: #eaf3e4; color: var(--donasi-green); border: 1px solid #cfe3c2; }
+.donasi-status__alert--error { background: #fbe9e9; color: var(--donasi-maroon); border: 1px solid #f1c6c6; }
+
+.donasi-status__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 8px 18px rgba(43, 28, 16, 0.06);
+    margin-bottom: 16px;
+}
+.donasi-status__kode { display: block; font-family: monospace; font-size: 0.9rem; color: var(--donasi-text-muted); margin-bottom: 8px; }
+.donasi-status__badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    margin-bottom: 14px;
+}
+.donasi-status__badge--pending { background: #fdf3d9; color: #a1750b; }
+.donasi-status__badge--verified { background: #eaf3e4; color: var(--donasi-green); }
+.donasi-status__badge--rejected { background: #fbe9e9; color: var(--donasi-maroon); }
+
+.donasi-status__table { width: 100%; }
+.donasi-status__table td { padding: 5px 0; font-size: 0.85rem; color: var(--donasi-text); }
+.donasi-status__table td:first-child { color: var(--donasi-text-mutedest); width: 130px; }
+
+.donasi-status__wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+.donasi-status__wa-btn:hover { background: #1ebc59; color: #fff; }
+
+.donasi-status__note { color: var(--donasi-text-muted); font-size: 0.85rem; }
+.donasi-status__note--success { color: var(--donasi-green); }
+
+.donasi-status__reject-box {
+    background: #fdf5f0;
+    border: 1px solid #f3ddce;
+    border-radius: 16px;
+    padding: 18px;
+}
+.donasi-status__reject-box h3 { font-family: 'Lora', serif; color: var(--donasi-maroon); font-size: 1rem; margin: 0 0 8px; }
+.donasi-status__reject-box p { font-size: 0.85rem; color: var(--donasi-text-muted); margin: 0 0 8px; }
+.donasi-status__reject-hint { font-size: 0.8rem !important; color: var(--donasi-text-mutedest) !important; }
+
+.donasi-status__resubmit-form { margin-top: 14px; }
+.donasi-status__resubmit-form label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--donasi-text); margin-bottom: 6px; }
+.donasi-status__resubmit-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--donasi-border);
+    border-radius: 8px;
+    margin-bottom: 4px;
+    background: #fff;
+    font-size: 0.82rem;
+}
+.donasi-status__hint { display: block; font-size: 0.72rem; color: var(--donasi-text-mutedest); margin-bottom: 14px; }
+.donasi-status__resubmit-form button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #a70e13 0%, #c84a1a 100%);
+    color: var(--donasi-cream);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+.donasi-status__resubmit-form button:hover { opacity: 0.9; }

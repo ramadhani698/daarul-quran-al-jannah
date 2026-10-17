@@ -1,0 +1,207 @@
+/* ===== Halaman Show — detail program + form donasi ===== */
+.donasi-show { padding: 0 16px 8px; }
+
+.donasi-show__image {
+    aspect-ratio: 1.7 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--donasi-gold), var(--donasi-maroon));
+    margin-bottom: 16px;
+}
+.donasi-show__image img { width: 100%; height: 100%; object-fit: cover; }
+
+.donasi-show__body { margin-bottom: 20px; }
+.donasi-show__kategori {
+    color: var(--donasi-green);
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.donasi-show__title { font-family: 'Lora', serif; color: var(--donasi-text); font-size: 1.35rem; margin: 6px 0 10px; }
+.donasi-show__desc { color: var(--donasi-text-muted); font-size: 0.88rem; line-height: 1.6; margin: 0 0 16px; }
+.donasi-show__nolimit { color: var(--donasi-text-muted); font-size: 0.85rem; margin: 0 0 8px; }
+.donasi-show__nolimit span { color: var(--donasi-text-mutedest); }
+.donasi-show__donatur-count { color: var(--donasi-text-mutedest); font-size: 0.82rem; margin: 0 0 20px; }
+
+.donasi-show__form-wrap { margin-bottom: 8px; }
+.donasi-form {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px 20px;
+    box-shadow: 0 10px 24px rgba(43, 28, 16, 0.08);
+}
+.donasi-form__title { font-family: 'Lora', serif; color: var(--donasi-maroon); font-size: 1.05rem; margin: 0 0 18px; }
+.donasi-form__group { margin-bottom: 14px; }
+.donasi-form__group label { display: block; font-size: 0.82rem; color: var(--donasi-text); font-weight: 600; margin-bottom: 5px; }
+.donasi-form__group input[type="text"],
+.donasi-form__group input[type="file"],
+.donasi-form__group textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--donasi-border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.86rem;
+}
+.donasi-form__group--checkbox { display: flex; align-items: center; gap: 8px; }
+.donasi-form__group--checkbox label { margin-bottom: 0; font-weight: 400; font-size: 0.8rem; }
+.donasi-form__hint { display: block; font-size: 0.72rem; color: var(--donasi-text-mutedest); margin-top: 4px; }
+.donasi-form__error { display: block; font-size: 0.75rem; color: var(--donasi-maroon); margin-top: 4px; }
+.donasi-form__submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #a70e13 0%, #c84a1a 100%);
+    color: var(--donasi-cream);
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+.donasi-form__submit:hover { opacity: 0.9; }
+
+/* Honeypot — disembunyikan visual, bukan pakai type=hidden atau display:none murni,
+   biar bot yang cuma skip field hidden/none tetap kejebak dan ngisi field ini */
+.donasi-form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ===== Ajakan share — gantiin posisi riwayat donatur ===== */
+.donasi-show__share {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(43, 28, 16, 0.06);
+}
+.donasi-show__share-label { color: var(--donasi-text-muted); font-size: 0.82rem; margin: 0 0 10px; }
+.donasi-show__share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 20px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.donasi-show__share-btn:hover { background: #1ebc59; color: #fff; }
+
+/* ===== CTA "{Kategori} Sekarang" + modal form (bottom sheet) ===== */
+.donasi-show__cta-wrap { padding: 4px 0 4px; }
+.donasi-show__cta-btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #a70e13 0%, #c84a1a 100%);
+    color: var(--donasi-cream);
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.donasi-show__cta-btn:hover { opacity: 0.92; }
+
+.donasi-form-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+}
+.donasi-form-modal__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 28, 16, 0);
+    transition: background 0.25s ease;
+}
+.donasi-form-modal__panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    width: calc(100% - 32px);
+    max-width: calc(var(--donasi-frame-width) - 32px);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 28px;
+    box-shadow: 0 -10px 30px rgba(43, 28, 16, 0.2);
+    transform: translate(-50%, 100%);
+    transition: transform 0.3s ease;
+}
+.donasi-form-modal.is-open { pointer-events: auto; }
+.donasi-form-modal.is-open .donasi-form-modal__backdrop { background: rgba(43, 28, 16, 0.55); }
+.donasi-form-modal.is-open .donasi-form-modal__panel { transform: translate(-50%, 0); }
+.donasi-form-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--donasi-text-mutedest);
+    cursor: pointer;
+}
+.donasi-form-modal .donasi-form { box-shadow: none; padding: 0; border-radius: 0; }
+
+/* ===== Info rekening tujuan + QRIS di dalam form ===== */
+.donasi-form__rekening { margin-bottom: 18px; }
+.donasi-form__rekening-label { font-size: 0.82rem; color: var(--donasi-text); font-weight: 600; margin: 0 0 8px; }
+.donasi-form__rekening-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--donasi-cream);
+    border: 1px solid var(--donasi-border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+}
+.donasi-form__rekening-info { display: flex; flex-direction: column; gap: 2px; }
+.donasi-form__rekening-bank { font-size: 0.76rem; color: var(--donasi-text-mutedest); font-weight: 600; text-transform: uppercase; }
+.donasi-form__rekening-nomor { font-family: monospace; font-size: 1.05rem; color: var(--donasi-text); font-weight: 700; letter-spacing: 0.02em; }
+.donasi-form__rekening-nama { font-size: 0.76rem; color: var(--donasi-text-mutedest); }
+.donasi-form__rekening-copy {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border: 1px solid var(--donasi-maroon);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--donasi-maroon);
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.donasi-form__rekening-copy:hover { background: var(--donasi-maroon); color: #fff; }
+.donasi-form__rekening-tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+.donasi-form__rekening-tab {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--donasi-border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--donasi-text-mutedest);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.donasi-form__rekening-tab.is-active {
+    background: var(--donasi-maroon);
+    border-color: var(--donasi-maroon);
+    color: #fff;
+}
+.donasi-form__rekening-panel { margin-bottom: 6px; }
+.donasi-form__rekening-note { font-size: 0.72rem; color: var(--donasi-text-mutedest); text-align: center; margin: 6px 0 0; }
+.donasi-form__rekening-qris {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    border-radius: 12px;
+    border: 1px solid var(--donasi-border);
+}

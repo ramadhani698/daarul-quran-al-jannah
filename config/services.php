@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'google_sheets' => [
+        'credentials_path' => env('GOOGLE_SHEETS_CREDENTIALS_PATH'),
+        'spreadsheet_id' => env('GOOGLE_SHEETS_SPREADSHEET_ID'),
+        'range' => env('GOOGLE_SHEETS_RANGE'),
+    ],
+
+    'whatsapp' => [
+        // Nomor WA admin yang dihubungi donatur setelah selesai donasi.
+        // Format: kode negara tanpa "+" atau "0" di depan (62 untuk Indonesia).
+        'admin_number' => env('WHATSAPP_ADMIN_NUMBER', '6283805206231'),
+    ],
+
 ];

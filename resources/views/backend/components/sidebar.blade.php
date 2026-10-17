@@ -288,7 +288,7 @@
 
                 <!-- ================= PENDAFTARAN ================= -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-plus"></i>
 
                         <p>
@@ -298,12 +298,16 @@
                 </li>
 
                 <!-- ================= DONASI ================= -->
-                <li class="nav-item has-treeview
-                    {{ request()->routeIs('admin.donasi.*') ? 'menu-open' : '' }}">
+                @php
+                    $donasiMenu =
+                        request()->routeIs('admin.carousel-donasi.*') ||
+                        request()->routeIs('admin.kategori-donasi.*') ||
+                        request()->routeIs('admin.program-donasi.*') ||
+                        request()->routeIs('admin.donasi.*');
+                @endphp
+                <li class="nav-item has-treeview {{ $donasiMenu ? 'menu-open' : '' }}">
 
-                    <a href="#"
-                       class="nav-link
-                       {{ request()->routeIs('admin.donasi.*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ $donasiMenu ? 'active' : '' }}">
 
                         <i class="nav-icon fas fa-donate"></i>
 
@@ -316,8 +320,8 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a href="#"
-                               class="nav-link">
+                            <a href="{{ route('admin.carousel-donasi.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.carousel-donasi.*') ? 'active' : '' }}">
 
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Carousel Donasi</p>
@@ -325,8 +329,17 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#"
-                               class="nav-link">
+                            <a href="{{ route('admin.kategori-donasi.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.kategori-donasi.*') ? 'active' : '' }}">
+
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kategori Donasi</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.program-donasi.index') }}"
+                            class="nav-link {{ request()->routeIs('admin.program-donasi.*') ? 'active' : '' }}">
 
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Program Donasi</p>
@@ -334,8 +347,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#"
-                               class="nav-link">
+                            <a href="{{ route('admin.donasi.program') }}"
+                            class="nav-link {{ request()->routeIs('admin.donasi.program') ? 'active' : '' }}">
 
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Donasi Program</p>
@@ -343,11 +356,11 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#"
-                               class="nav-link">
+                            <a href="{{ route('admin.donasi.non-program') }}"
+                            class="nav-link {{ request()->routeIs('admin.donasi.non-program') ? 'active' : '' }}">
 
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Donasi Non Program</p>
+                                <p>Donasi Umum</p>
                             </a>
                         </li>
 
