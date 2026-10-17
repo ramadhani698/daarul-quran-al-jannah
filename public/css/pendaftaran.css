@@ -1,0 +1,254 @@
+.hero-section-pendaftaran {
+    position: relative;
+    height: 350px;
+    margin-top: 70px;
+    background: linear-gradient(
+        135deg,
+        #a70e13 0%,
+        #c84a1a 40%,
+        #e87a3a 75%,
+        #f4a56a 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+}
+
+#hero-canvas-pendaftaran {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    display: block;
+}
+
+.pendaftaran-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(55px);
+    animation: pendaftaranBlobDrift 10s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pendaftaran-blob-1 {
+    width: 280px;
+    height: 280px;
+    background: rgba(255, 255, 255, 0.08);
+    top: -80px;
+    left: -60px;
+    animation-duration: 12s;
+}
+
+.pendaftaran-blob-2 {
+    width: 220px;
+    height: 220px;
+    background: rgba(244, 196, 48, 0.1);
+    bottom: -60px;
+    right: -40px;
+    animation-duration: 9s;
+    animation-delay: -4s;
+}
+
+.pendaftaran-blob-3 {
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.05);
+    top: 35%;
+    right: 12%;
+    animation-duration: 14s;
+    animation-delay: -7s;
+}
+
+@keyframes pendaftaranBlobDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(15px, -20px) scale(1.05); }
+    66%       { transform: translate(-12px, 15px) scale(0.97); }
+}
+
+.pendaftaran-corner {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.pendaftaran-corner-tl {
+    top: 28px;
+    left: 28px;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.pendaftaran-corner-tr {
+    top: 28px;
+    right: 28px;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.pendaftaran-corner-bl {
+    bottom: 48px;
+    left: 28px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.pendaftaran-corner-br {
+    bottom: 48px;
+    right: 28px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.hero-content-pendaftaran {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    padding: 24px 32px 0;
+    margin: 0 auto;
+}
+
+.hero-eyebrow-pendaftaran {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    animation: pendaftaranFadeUp 0.7s ease both;
+}
+
+.hero-eyebrow-dot-pendaftaran {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f4c430;
+    flex-shrink: 0;
+    animation: pendaftaranEyebrowDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes pendaftaranEyebrowDotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.3; transform: scale(0.6); }
+}
+
+.hero-title-pendaftaran {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    font-family: "Playfair Display", serif;
+    text-shadow: 0 2px 12px rgba(100, 20, 0, 0.2);
+    animation: pendaftaranFadeUp 0.7s 0.12s ease both;
+}
+
+.hero-subtitle-pendaftaran {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 28px;
+    line-height: 1.6;
+    animation: pendaftaranFadeUp 0.7s 0.22s ease both;
+}
+
+.hero-pendaftaran-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    animation: pendaftaranFadeUp 0.7s 0.32s ease both;
+}
+
+.hero-pendaftaran-ornament-line {
+    height: 1px;
+    width: 52px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+}
+
+.hero-pendaftaran-ornament-line.right {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.hero-pendaftaran-ornament-diamond {
+    width: 7px;
+    height: 7px;
+    background: #f4c430;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(244, 196, 48, 0.6);
+}
+
+@keyframes pendaftaranFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.pendaftaran-section {
+    padding: 4rem 0;
+}
+
+.pendaftaran-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    padding: 2.5rem;
+    border-top: 4px solid var(--accent-color);
+}
+
+.pendaftaran-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.info-list-pendaftaran {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+}
+
+.info-list-pendaftaran li {
+    padding: .6rem 0;
+    border-bottom: 1px dashed #e5e5e5;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.info-list-pendaftaran li i {
+    color: var(--accent-color);
+}
+
+.cta-daftar {
+    display: inline-block;
+    padding: .9rem 2.5rem;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+
+.cta-daftar:hover {
+    background: #7a0a0e;
+    color: #fff;
+}

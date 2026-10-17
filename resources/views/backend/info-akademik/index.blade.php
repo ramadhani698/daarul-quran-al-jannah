@@ -113,7 +113,10 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        let activeTab = localStorage.getItem('infoAkademikActiveTab');
+        let hash = window.location.hash;
+        let hashValid = hash && $('#info-akademik-tabs a[href="' + hash + '"]').length;
+        let activeTab = hashValid ? hash : localStorage.getItem('infoAkademikActiveTab');
+
         if (activeTab) {
             $('#info-akademik-tabs a[href="' + activeTab + '"]').tab('show');
         }
