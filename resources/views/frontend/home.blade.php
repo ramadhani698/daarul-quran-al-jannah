@@ -56,7 +56,7 @@
                 <div class="home-title text-center">
                     <h4 data-aos="fade-up">Selamat Datang di</h4>
                     <h2 data-aos="zoom-in" data-aos-delay="150">
-                    Daarul Qur'an Al-Jannah
+                        Daarul Qur'an <span class="d-inline-block">Al-Jannah</span>
                     </h2>
                 </div>
             </div>
@@ -266,7 +266,7 @@
         @foreach ($cat->extracurriculars as $ekskul)
 
             <div class="modal fade" id="modal-{{ $ekskul->slug }}" tabindex="-1">
-                <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
                     <div class="modal-content">
 
                         <div class="modal-header">
@@ -279,14 +279,13 @@
 
                         <div class="modal-body">
 
-                            <p>{!! $ekskul->description !!}</p>
+                            <p>{!! nl2br(e($ekskul->description)) !!}</p>
 
                             @if ($ekskul->galleries->isNotEmpty())
                                 <div class="text-center">
                                     @foreach ($ekskul->galleries as $gallery)
                                         <img src="{{ Storage::url($gallery->image) }}"
-                                            class="img-fluid rounded shadow m-2"
-                                            style="max-width: 400px;"
+                                            class="img-fluid rounded shadow m-2 ekskul-gallery-img"
                                             alt="{{ $ekskul->title }}">
                                     @endforeach
                                 </div>
@@ -460,7 +459,7 @@
                             Jl. Tegal Salam, Rt/Rw 022/008<br />
                             Kecamatan Cariu Kabupaten Bogor, Jawa Barat, 16840
                         </p>
-                        <a href="https://wa.me/6281288674507?text=Halo%20saya%20ingin%20bertanya" target="_blank"><i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/{{ config('services.whatsapp.admin_number') }}?text=Halo%20saya%20ingin%20bertanya" target="_blank"><i class="fab fa-whatsapp"></i>
                             Chat untuk info lebih lanjut
                         </a>
                     </div>

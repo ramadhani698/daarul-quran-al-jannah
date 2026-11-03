@@ -8,24 +8,42 @@ use Illuminate\Support\Facades\Cache;
 
 class GoogleSheetService
 {
-    protected GoogleSheets $service;
-    protected string $spreadsheetId;
-    protected string $range;
+    protected ?GoogleSheets $service = null;
+    protected ?string $spreadsheetId = null;
+    protected ?string $range = null;
 
     public function __construct()
     {
-        $client = new GoogleClient();
-        $client->setApplicationName('Daarul Quran Al-Jannah - Pendaftaran');
-        $client->setScopes([GoogleSheets::SPREADSHEETS_READONLY]);
-        $client->setAuthConfig(base_path(config('services.google_sheets.credentials_path')));
-
-        $this->service = new GoogleSheets($client);
+        $credPath = config('services.google_sheets.credentials_path');
         $this->spreadsheetId = config('services.google_sheets.spreadsheet_id');
         $this->range = config('services.google_sheets.range');
+
+        if (! empty($credPath) && file_exists(base_path($credPath))) {
+            try {
+                $client = new GoogleClient();
+                $client->setApplicationName('Daarul Quran Al-Jannah - Pendaftaran');
+                $client->setScopes([GoogleSheets::SPREADSHEETS_READONLY]);
+                $client->setAuthConfig(base_path($credPath));
+
+                $this->service = new GoogleSheets($client);
+            } catch (\Throwable $e) {
+                report($e);
+                $this->service = null;
+            }
+        }
+    }
+
+    public function isConfigured(): bool
+    {
+        return $this->service !== null && !empty($this->spreadsheetId) && !empty($this->range);
     }
 
     public function getRawData(): array
     {
+        if (! $this->isConfigured()) {
+            return [];
+        }
+
         return Cache::remember('data-pendaftaran-sheet', now()->addMinutes(10), function () {
             $response = $this->service->spreadsheets_values->get($this->spreadsheetId, $this->range);
 

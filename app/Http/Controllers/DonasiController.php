@@ -24,6 +24,8 @@ class DonasiController extends Controller
         $programs = ProgramDonasi::tampilPublik()
             ->where('is_umum', false)
             ->with('kategori')
+            ->withSum(['donasis as terkumpul' => fn ($q) => $q->where('status', 'verified')], 'nominal')
+            ->withCount(['donasis as jumlah_donatur' => fn ($q) => $q->where('status', 'verified')])
             ->latest()
             ->get();
 
@@ -41,15 +43,11 @@ class DonasiController extends Controller
         // di sini. Kita tolak manual biar link lama/nonaktif nggak bisa diakses.
         abort_unless($program->is_active && ! $program->sudah_berakhir, 404);
 
-        $program->load('kategori');
+        $program->loadMissing('kategori')
+            ->loadSum(['donasis as terkumpul' => fn ($q) => $q->where('status', 'verified')], 'nominal')
+            ->loadCount(['donasis as jumlah_donatur' => fn ($q) => $q->where('status', 'verified')]);
 
-        // Riwayat donatur publik untuk program ini (verified saja, urutan terbaru dulu)
-        $donaturTerbaru = $program->donasisVerified()
-            ->latest()
-            ->take(10)
-            ->get();
-
-        return view('frontend.donasi.show', compact('program', 'donaturTerbaru'));
+        return view('frontend.donasi.show', compact('program'));
     }
 
     // Proses submit form donasi dari donor.
@@ -62,7 +60,7 @@ class DonasiController extends Controller
         unset($data['website']); // honeypot, jangan ikut disimpan
 
         if ($request->hasFile('bukti_transfer')) {
-            $data['bukti_transfer'] = $request->file('bukti_transfer')->store('bukti-transfer', 'public');
+            $data['bukti_transfer'] = $request->file('bukti_transfer')->store('bukti-transfer', 'local');
         }
 
         $donasi = Donasi::create($data);
@@ -109,7 +107,12 @@ class DonasiController extends Controller
     // sesuai keputusan — cuma kasus belum-pernah-upload yang dipisah ke sini.
     public function uploadBuktiForm(Donasi $donasi)
     {
-        abort_unless($donasi->status === 'pending' && is_null($donasi->bukti_transfer), 404);
+        if (! is_null($donasi->bukti_transfer)) {
+            return redirect()->route('donasi.status', $donasi->kode_donasi)
+                ->with('info', 'Bukti transfer sudah diunggah dan sedang dalam proses verifikasi.');
+        }
+
+        abort_unless($donasi->status === 'pending', 404);
 
         $donasi->load('program.kategori');
 
@@ -146,15 +149,19 @@ class DonasiController extends Controller
 
         // Hapus file bukti transfer lama biar storage nggak numpuk file nggak kepake
         // (khusus kasus rejected — kasus belum-pernah-upload otomatis skip karena null)
-        if ($donasi->bukti_transfer && Storage::disk('public')->exists($donasi->bukti_transfer)) {
-            Storage::disk('public')->delete($donasi->bukti_transfer);
+        if ($donasi->bukti_transfer) {
+            if (Storage::disk('local')->exists($donasi->bukti_transfer)) {
+                Storage::disk('local')->delete($donasi->bukti_transfer);
+            } elseif (Storage::disk('public')->exists($donasi->bukti_transfer)) {
+                Storage::disk('public')->delete($donasi->bukti_transfer);
+            }
         }
 
-        $donasi->update([
-            'bukti_transfer' => $request->file('bukti_transfer')->store('bukti-transfer', 'public'),
+        $donasi->forceFill([
+            'bukti_transfer' => $request->file('bukti_transfer')->store('bukti-transfer', 'local'),
             'status' => 'pending',
             'catatan_admin' => null, // reset catatan penolakan lama, siap diverifikasi ulang
-        ]);
+        ])->save();
 
         return redirect()
             ->route('donasi.status', $donasi->kode_donasi)

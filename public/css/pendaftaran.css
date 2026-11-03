@@ -252,3 +252,143 @@
     background: #7a0a0e;
     color: #fff;
 }
+
+/* =====================================================
+   RESPONSIVE - Halaman Pendaftaran
+   Tempel di PALING BAWAH file CSS ini.
+   CSS asli belum punya @media, jadi nggak ada yang perlu dihapus.
+   Urutan: besar -> kecil. JANGAN dibalik.
+   ===================================================== */
+
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero: tinggi ngikutin isi (dulu fixed 350px) ----- */
+  .hero-section-pendaftaran {
+    height: auto;
+    min-height: 320px;
+    padding: 3.5rem 0 4rem;
+    border-radius: 0 0 32px 32px;
+  }
+
+  .hero-title-pendaftaran { font-size: 2.2rem; }
+
+  /* ----- Card: col-lg-7 jadi full width di bawah 992px,
+         dibatasi biar ga kelebaran di tablet ----- */
+  .pendaftaran-section .col-lg-7 { max-width: 560px; }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-pendaftaran {
+    min-height: 300px;
+    padding: 3rem 0 3.5rem;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .hero-content-pendaftaran { padding: 16px 20px 0; }
+
+  .hero-title-pendaftaran { font-size: 1.9rem; }
+
+  .hero-subtitle-pendaftaran {
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+  }
+
+  /* ornamen sudut dikecilin & dirapetin ke pojok */
+  .pendaftaran-corner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pendaftaran-corner-tl,
+  .pendaftaran-corner-tr { top: 16px; }
+
+  .pendaftaran-corner-bl,
+  .pendaftaran-corner-br { bottom: 24px; }
+
+  .pendaftaran-corner-tl,
+  .pendaftaran-corner-bl { left: 16px; }
+
+  .pendaftaran-corner-tr,
+  .pendaftaran-corner-br { right: 16px; }
+
+  /* ----- Card ----- */
+  .pendaftaran-section { padding: 2.5rem 0; }
+
+  .pendaftaran-card { padding: 2rem 1.5rem; }
+  .pendaftaran-card h2 { font-size: 1.7rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-pendaftaran {
+    min-height: 0;
+    padding: 2.5rem 0 3rem;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .pendaftaran-corner { display: none; }
+
+  .hero-content-pendaftaran { padding: 8px 16px 0; }
+
+  .hero-eyebrow-pendaftaran {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title-pendaftaran { font-size: 1.6rem; }
+
+  .hero-subtitle-pendaftaran {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-pendaftaran-ornament { margin-bottom: 16px; }
+
+  /* ----- Card ----- */
+  .pendaftaran-section { padding: 2rem 0; }
+
+  .pendaftaran-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .pendaftaran-card h2 { font-size: 1.5rem; }
+
+  /* daftar info: teks panjang turun baris, ikon tetap di atas & sejajar */
+  .info-list-pendaftaran li {
+    align-items: flex-start;
+    font-size: 0.95rem;
+  }
+
+  .info-list-pendaftaran li i {
+    flex-shrink: 0;
+    width: 1.25rem;
+    margin-top: 0.2rem;
+    text-align: center;
+  }
+
+  /* tombol daftar full width, gampang di-tap */
+  .cta-daftar {
+    display: block;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    text-align: center;
+  }
+}

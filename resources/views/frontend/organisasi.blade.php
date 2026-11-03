@@ -2,6 +2,11 @@
 
 @section('title', 'Organisasi Santri')
 
+@push('styles')
+    <link href="{{ asset('css/organisasi.css') }}" rel="stylesheet">
+@endpush
+
+
 @section('content')
 
     <header class="header" style="margin-top: 80px;">

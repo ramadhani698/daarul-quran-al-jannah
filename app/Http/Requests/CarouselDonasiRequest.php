@@ -24,7 +24,7 @@ class CarouselDonasiRequest extends FormRequest
 
         return [
             'judul'             => ['nullable', 'string', 'max:100'],
-            'gambar'            => [$isUpdate ? 'nullable' : 'required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10840'],
+            'gambar'            => [$isUpdate ? 'nullable' : 'required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'program_donasi_id' => ['nullable', 'integer', Rule::exists('program_donasis', 'id')->whereNull('deleted_at')],
             'urutan'            => ['nullable', 'integer', 'min:0'],
             'is_aktif'          => ['boolean'],

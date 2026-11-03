@@ -25,6 +25,7 @@ body.donasi-body {
     margin: 0 auto;
     background: var(--donasi-cream);
     min-height: 100vh;
+    min-height: 100dvh;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
@@ -77,6 +78,8 @@ body.donasi-body {
     50.01%, 100% { opacity: 0; }
 }
 
+@media (max-width: 420px) { .donasi-header { padding: 10px 14px; gap: 8px; } .donasi-header__logo { width: 110px; height: 40px; } .donasi-header__typebox { padding: 6px 10px; } .donasi-header__typebox-prefix { display: none; } }
+
 /* ===== Topbar kontekstual ===== */
 .donasi-topbar {
     background: var(--donasi-cream);
@@ -108,56 +111,60 @@ body.donasi-body {
     color: var(--donasi-maroon-dark);
 }
 
-/* ===== Carousel — sekarang dikasih jarak kiri-kanan dari frame ===== */
 .donasi-carousel {
     padding: 0 16px;
 }
-.donasi-carousel__track {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 2.4 / 1;
+.carousel-donasi {
+    border-radius: 14px;
     overflow: hidden;
     background: var(--donasi-border);
-    border-radius: 14px;
 }
 .donasi-carousel__slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    aspect-ratio: 2.4 / 1;
     object-fit: cover;
-    opacity: 0;
-    pointer-events: none;          /* <- baru: slide nggak aktif nggak nangkep klik */
-    transition: opacity 0.5s ease;
+    user-select: none;
 }
-.donasi-carousel__slide.is-active {
-    opacity: 1;
-    pointer-events: auto;          /* <- baru: cuma slide aktif yang bisa diklik */
-}
-
-/* wrapper link nggak ikut ngatur layout, gambar tetap numpuk di track */
-.donasi-carousel__link {
-    display: contents;
-}
-.donasi-carousel__link .donasi-carousel__slide {
-    cursor: pointer;               /* cuma banner program yang kelihatan bisa diklik */
-}
-.donasi-carousel__dots {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    padding: 10px 0;
-    background: var(--donasi-cream);
-}
-.donasi-carousel__dots span {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--donasi-border);
+.carousel-donasi a .donasi-carousel__slide {
     cursor: pointer;
 }
-.donasi-carousel__dots span.is-active {
-    background: var(--donasi-maroon);
+
+/* panah dibikin kecil & bulat biar banner yang ada link-nya tetap gampang diklik */
+.carousel-donasi .carousel-control-prev,
+.carousel-donasi .carousel-control-next {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: none;
+    opacity: 1;
+}
+.carousel-donasi .carousel-control-prev { left: 10px; }
+.carousel-donasi .carousel-control-next { right: 10px; }
+.carousel-donasi .carousel-control-prev-icon,
+.carousel-donasi .carousel-control-next-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* dots: aktif pakai maroon */
+.carousel-donasi .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 0;
+}
+.carousel-donasi .carousel-indicators .active {
+    background-color: var(--donasi-maroon);
+}
+
+@media (max-width: 576px) {
+    .carousel-donasi .carousel-control-prev,
+    .carousel-donasi .carousel-control-next {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 /* ===== CTA kategori — nyambung sama hero di atas & program di bawah ===== */
@@ -540,11 +547,11 @@ body.donasi-body {
 
 /* ===== Bottom Navigation — sedikit lebih gelap dari hero, kasih "bobot" di bawah ===== */
 .donasi-frame {
-    padding-bottom: 76px;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 }
 .donasi-bottomnav {
     position: fixed;
-    bottom: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 32px);

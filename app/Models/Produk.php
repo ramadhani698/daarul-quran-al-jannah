@@ -33,7 +33,7 @@ class Produk extends Model
     // Generate link Whatsapp otomatis berdasarkan nama produk
     public function getWaLinkAttribute(): string
     {
-        $nomor = '6285885428128';
+        $nomor = config('services.whatsapp.admin_number', '6285885428128');
         $pesan = "Halo Admin Daqu Store, saya ingin memesan {$this->nama}";
 
         return "https://wa.me/{$nomor}?text=" . urlencode($pesan);

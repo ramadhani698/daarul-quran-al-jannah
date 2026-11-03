@@ -96,13 +96,13 @@
                     @if ($donasi->bukti_transfer)
                         @php $ext = pathinfo($donasi->bukti_transfer, PATHINFO_EXTENSION); @endphp
                         @if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png']))
-                            <a href="{{ asset('storage/' . $donasi->bukti_transfer) }}" target="_blank">
-                                <img src="{{ asset('storage/' . $donasi->bukti_transfer) }}"
+                            <a href="{{ route('admin.donasi.bukti', $donasi) }}" target="_blank">
+                                <img src="{{ route('admin.donasi.bukti', $donasi) }}"
                                     alt="Bukti transfer"
                                     class="img-fluid rounded border">
                             </a>
                         @else
-                            <a href="{{ asset('storage/' . $donasi->bukti_transfer) }}" target="_blank" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.donasi.bukti', $donasi) }}" target="_blank" class="btn btn-outline-secondary">
                                 <i class="fas fa-file-pdf"></i> Buka File PDF
                             </a>
                         @endif
@@ -118,6 +118,7 @@
         <form action="{{ route('admin.donasi.update', $donasi) }}" method="POST">
             @csrf
             @method('PATCH')
+            <input type="hidden" name="status_awal" value="{{ $donasi->status }}">
 
             <div class="mb-3">
                 <label class="form-label d-block">Keputusan Verifikasi</label>

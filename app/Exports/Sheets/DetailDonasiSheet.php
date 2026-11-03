@@ -3,7 +3,7 @@
 namespace App\Exports\Sheets;
 
 use App\Models\ProgramDonasi;
-use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -12,15 +12,15 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
-class DetailDonasiSheet extends DefaultValueBinder implements FromArray, WithCustomValueBinder, WithHeadings, WithMapping, WithTitle
+class DetailDonasiSheet extends DefaultValueBinder implements FromQuery, WithCustomValueBinder, WithHeadings, WithMapping, WithTitle
 {
     public function __construct(protected ProgramDonasi $program)
     {
     }
 
-    public function array(): array
+    public function query()
     {
-        return $this->program->donasis()->latest()->get()->all();
+        return $this->program->donasis()->latest();
     }
 
     public function map($donasi): array

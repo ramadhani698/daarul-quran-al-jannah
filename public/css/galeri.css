@@ -380,3 +380,190 @@
   padding: 1rem;
   text-align: center;
 }
+
+/* =====================================================
+   RESPONSIVE - Halaman Galeri
+   Tempel di PALING BAWAH file CSS ini.
+   CSS asli belum punya @media, jadi nggak ada yang perlu dihapus.
+   Urutan: besar -> kecil. JANGAN dibalik.
+   ===================================================== */
+
+
+/* =====================================================
+   LAPTOP KECIL KEBAWAH (<= 1199px)
+   ===================================================== */
+@media (max-width: 1199.98px) {
+
+  /* foto potret di modal jangan lebih tinggi dari layar */
+  #modalImage {
+    max-height: 75vh;
+    object-fit: contain;
+  }
+}
+
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero: tinggi ngikutin isi (dulu fixed 350px) ----- */
+  .hero-section-gallery {
+    height: auto;
+    min-height: 320px;
+    padding: 3.5rem 0 4rem;
+    border-radius: 0 0 32px 32px;
+  }
+
+  .hero-title-gallery { font-size: 2.2rem; }
+
+  /* ----- Galeri ----- */
+  .gallery-section { padding: 3rem 1.5rem; }
+  .gallery-img { height: 220px; }
+}
+
+
+/* =====================================================
+   LAYAR SENTUH (HP & tablet)
+   Hover ga ada di layar sentuh, jadi caption yang tadinya
+   muncul saat hover dibuat selalu tampil (judul aja, deskripsi
+   lengkap tetap ada di modal).
+   ===================================================== */
+@media (hover: none) {
+
+  .gallery-overlay {
+    bottom: 0;
+    padding: 1.5rem 0.75rem 0.6rem;
+    background: linear-gradient(to top, rgba(0, 95, 65, 0.92), rgba(0, 95, 65, 0));
+  }
+
+  .gallery-caption h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .gallery-caption p { display: none; }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)  -> grid 2 kolom
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-gallery {
+    min-height: 300px;
+    padding: 3rem 0 3.5rem;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .hero-content-gallery { padding: 16px 20px 0; }
+
+  .hero-title-gallery { font-size: 1.9rem; }
+
+  .hero-subtitle-gallery {
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+  }
+
+  /* ornamen sudut dikecilin & dirapetin ke pojok */
+  .gallery-corner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gallery-corner-tl,
+  .gallery-corner-tr { top: 16px; }
+
+  .gallery-corner-bl,
+  .gallery-corner-br { bottom: 24px; }
+
+  .gallery-corner-tl,
+  .gallery-corner-bl { left: 16px; }
+
+  .gallery-corner-tr,
+  .gallery-corner-br { right: 16px; }
+
+  /* ----- Galeri ----- */
+  .gallery-section { padding: 2.5rem 1rem; }
+
+  .section-header-gallery { margin-bottom: 2rem; }
+  .section-gallery-title { font-size: 1.7rem; }
+
+  /* 2 kolom (auto-fill 300px di sini cuma kebagian 1 kolom) */
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .gallery-img { height: 200px; }
+
+  /* ----- Modal: dulu width 80% + margin 5%, sempit di HP ----- */
+  .modal-content {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-gallery {
+    min-height: 0;
+    padding: 2.5rem 0 3rem;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .gallery-corner { display: none; }
+
+  .hero-content-gallery { padding: 8px 16px 0; }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title-gallery { font-size: 1.6rem; }
+
+  .hero-subtitle-gallery {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-gallery-ornament { margin-bottom: 16px; }
+
+  /* ----- Galeri ----- */
+  .gallery-section { padding: 2rem 0.75rem; }
+
+  .section-header-gallery { margin-bottom: 1.5rem; }
+  .section-gallery-title { font-size: 1.5rem; }
+  .section-gallery-subtitle { font-size: 0.9rem; }
+
+  .gallery-grid { gap: 0.75rem; }
+  .gallery-img { height: 160px; }
+
+  /* caption lebih kecil biar ga nutupin thumbnail */
+  .gallery-overlay { padding: 1rem 0.5rem 0.4rem; }
+  .gallery-caption h3 { font-size: 0.8rem; }
+
+  /* nomor halaman banyak: turun baris, jangan meluber */
+  .gallery-section .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ----- Modal ----- */
+  #galleryModal .modal-body { padding: 1rem; }
+}

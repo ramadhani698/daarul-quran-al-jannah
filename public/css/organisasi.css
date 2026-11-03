@@ -133,3 +133,131 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =====================================================
+   RESPONSIVE - Halaman Organisasi Santri
+   Tempel di PALING BAWAH file CSS halaman ini.
+   Semua ada di dalam breakpoint, kode asli di atas tidak diubah.
+   Urutan: besar -> kecil. JANGAN dibalik, soalnya yang di bawah
+   nimpa yang di atas.
+   ===================================================== */
+
+
+/* =====================================================
+   XL KEBAWAH (<= 1199px)
+   ===================================================== */
+@media (max-width: 1199.98px) {
+
+  /* kartu boleh turun baris, ga ketekan jadi gepeng */
+  .structure-level,
+  .class-section,
+  .asrama-section {
+    flex-wrap: wrap;
+  }
+
+  /* section ketua kelas & asrama: kartu rata tengah */
+  .class-section,
+  .asrama-section {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
+/* =====================================================
+   TABLET (<= 991px)  -> navbar jadi 70px
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* margin-top 80px di Blade itu inline style, jadi perlu !important */
+  .header { margin-top: 70px !important; }
+
+  .header h1 { font-size: 2.2rem; }
+
+  .structure-level { gap: 1.5rem; }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Header ----- */
+  .header { padding: 1.5rem 0; }
+  .header h1 { font-size: 1.9rem; }
+  .header p { font-size: 1rem; }
+
+  /* ----- Konten ----- */
+  .main-content { padding: 2rem 0; }
+
+  .org-structure {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .org-structure h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ----- Bagan ----- */
+  .structure-chart { gap: 1.25rem; }
+  .structure-level { gap: 1rem; }
+  .connector { height: 30px; }
+
+  /* ----- Kartu ----- */
+  .position-card { padding: 1.25rem; }
+
+  .position-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .position-card h3 { font-size: 1.1rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Header ----- */
+  .header h1 { font-size: 1.6rem; }
+  .header p { font-size: 0.95rem; }
+
+  /* ----- Konten ----- */
+  .main-content { padding: 1.5rem 0; }
+
+  .org-structure {
+    padding: 1rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .org-structure h2 { font-size: 1.3rem; }
+
+  /* ----- Kartu: 2 per baris (gap 16px), kartu ganjil terakhir tetap di tengah ----- */
+  .position-card {
+    flex: 0 1 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    padding: 1rem 0.75rem;
+    overflow-wrap: break-word;
+  }
+
+  .position-icon { font-size: 2rem; }
+  .position-card h3 { font-size: 1rem; }
+  .position-card p { font-size: 0.85rem; }
+}
+
+
+/* =====================================================
+   HP KECIL BANGET (<= 359px)  -> 1 kartu per baris
+   ===================================================== */
+@media (max-width: 359.98px) {
+
+  .position-card {
+    flex: 0 1 100%;
+    max-width: 240px;
+  }
+}

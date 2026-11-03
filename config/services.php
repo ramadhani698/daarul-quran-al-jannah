@@ -44,7 +44,7 @@ return [
     'whatsapp' => [
         // Nomor WA admin yang dihubungi donatur setelah selesai donasi.
         // Format: kode negara tanpa "+" atau "0" di depan (62 untuk Indonesia).
-        'admin_number' => env('WHATSAPP_ADMIN_NUMBER', '6283805206231'),
+        'admin_number' => env('WHATSAPP_ADMIN_NUMBER', ''),
     ],
 
 ];

@@ -33,7 +33,7 @@ class KategoriDonasiRequest extends FormRequest
             'icon' => [
                 'nullable',
                 'image',
-                'mimes:jpg,jpeg,png,svg',
+                'mimes:jpg,jpeg,png,webp',
                 'max:512',
             ],
             'is_active' => ['nullable', 'boolean'],
@@ -47,7 +47,7 @@ class KategoriDonasiRequest extends FormRequest
             'nama.required' => 'Nama kategori wajib diisi.',
             'nama.unique' => 'Kategori dengan nama ini sudah ada.',
             'icon.image' => 'File harus berupa gambar.',
-            'icon.mimes' => 'Format icon harus jpg, jpeg, png, atau svg.',
+            'icon.mimes' => 'Format icon harus jpg, jpeg, png, atau webp.',
             'icon.max' => 'Ukuran icon maksimal 512KB.',
         ];
     }

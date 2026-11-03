@@ -404,6 +404,11 @@
     margin-bottom: 22px;
     flex: 1;
     font-family: 'DM Sans', sans-serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .prd-card__foot {
@@ -462,41 +467,151 @@
     display: block; 
 }
 
-/* ══════════════════════════════
-   RESPONSIVE
-══════════════════════════════ */
-@media (max-width: 768px) {
-    .prd-hero { margin-top: 60px; min-height: auto; }
-    .prd-hero__inner {
-        grid-template-columns: 1fr;
-        padding: 60px 24px;
-        gap: 0;
-    }
-    .prd-hero__visual {
-        display: none; 
-    }
+/* =====================================================
+   RESPONSIVE - Halaman Produk
+   Tempel di PALING BAWAH file CSS ini.
+   HAPUS DULU blok lama `@media (max-width: 768px)`.
+   JANGAN hapus `@media (prefers-reduced-motion: reduce)`,
+   itu aksesibilitas, bukan breakpoint.
+   Urutan: besar -> kecil. JANGAN dibalik.
 
-    .prd-trust {
-        padding: 0 24px; 
-    }
-    .prd-trust__inner {
-        grid-template-columns: 1fr; 
-    }
-    .prd-trust__item {
-        border-right: none;
-        border-bottom: 1px solid rgba(201,168,76,0.15);
-        padding: 18px 0;
-    }
-    .prd-trust__item:last-child {
-        border-bottom: none; 
-    }
+   NB: banyak properti di CSS asli pakai !important, jadi
+   override di bawah juga pakai !important di properti yang sama.
+   ===================================================== */
 
-    .prd-section {
-        padding: 56px 24px; 
-    }
-    .prd-grid {
-        grid-template-columns: 1fr; 
-    }
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)  -> hero masih 2 kolom, lebih rapat
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero ----- */
+  .prd-hero { min-height: auto; }
+
+  .prd-hero__inner {
+    padding: 64px 32px;
+    gap: 40px;
+  }
+
+  .prd-hero__stat { padding: 16px; }
+  .prd-hero__stat-num { font-size: 1.7rem; }
+
+  /* ----- Trust strip: 3 kolom lebih ringkas ----- */
+  .prd-trust { padding: 0 24px; }
+
+  .prd-trust__item {
+    gap: 12px;
+    padding: 22px 16px;
+  }
+
+  /* ----- Produk ----- */
+  .prd-section { padding: 72px 32px; }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)
+   hero 1 kolom, trust strip ditumpuk, grid produk 2 kolom
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Hero ----- */
+  .prd-hero__inner {
+    grid-template-columns: 1fr;
+    padding: 60px 24px;
+    gap: 0;
+  }
+
+  /* kotak stat di kanan disembunyiin di HP (sama kayak sebelumnya) */
+  .prd-hero__visual { display: none; }
+
+  .prd-hero__sub {
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+    max-width: none;
+  }
+
+  /* ----- Trust strip: ditumpuk ----- */
+  .prd-trust__inner { grid-template-columns: 1fr; }
+
+  .prd-trust__item {
+    border-right: none;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    padding: 18px 0;
+  }
+
+  .prd-trust__item:last-child { border-bottom: none; }
+
+  /* ----- Produk ----- */
+  .prd-section { padding: 56px 24px; }
+
+  .prd-section__head { margin-bottom: 40px; }
+
+  /* 2 kolom (dulu dipaksa 1 kolom, kartu jadi kelebaran & fotonya raksasa) */
+  .prd-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  /* kartu lebih ringkas biar muat 2 kolom */
+  .prd-card__body { padding: 20px 18px !important; }
+
+  .prd-card__title { font-size: 1.15rem !important; }
+
+  .prd-card__desc {
+    font-size: 0.82rem;
+    margin-bottom: 18px;
+  }
+
+  .prd-card__foot {
+    flex-wrap: wrap !important;
+    gap: 12px;
+  }
+
+  .prd-card__price { font-size: 1.2rem !important; }
+
+  .prd-card__btn { padding: 10px 16px !important; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)  -> grid produk 1 kolom
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .prd-hero__inner { padding: 48px 20px; }
+
+  .prd-hero__eyebrow {
+    letter-spacing: 0.14em;
+    margin-bottom: 18px;
+  }
+
+  .prd-hero__title {
+    font-size: 1.8rem !important;
+    margin-bottom: 18px !important;
+  }
+
+  /* ----- Trust strip ----- */
+  .prd-trust { padding: 0 20px; }
+
+  /* ----- Produk ----- */
+  .prd-section { padding: 48px 16px; }
+
+  .prd-section__head { margin-bottom: 32px; }
+
+  .prd-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .prd-card__body { padding: 20px !important; }
+
+  .prd-card__title { font-size: 1.2rem !important; }
+  .prd-card__desc { font-size: 0.875rem; }
+
+  .prd-card__price { font-size: 1.25rem !important; }
+  .prd-card__btn { padding: 10px 18px !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {

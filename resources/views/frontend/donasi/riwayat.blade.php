@@ -2,6 +2,10 @@
 
 @section('title', 'Riwayat Donatur')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/riwayat.css') }}">
+@endpush
+
 @section('content')
 <div class="riwayat-wrap">
     <h2 class="riwayat-title">Riwayat Donatur</h2>

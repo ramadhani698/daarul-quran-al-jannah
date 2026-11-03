@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Daarul Quran Aljannah')</title>
@@ -21,15 +21,7 @@
 
     <!-- STYLE CUSTOM -->
     <link href="{{ asset('css/reset.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/akademik.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/alumni.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/galeri.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/produk.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/organisasi.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/show.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/santri.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/pendaftaran.css') }}" rel="stylesheet">
 
     @stack('styles')
 </head>
@@ -44,13 +36,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- SCRIPT CUSTOM -->
-    <script src="{{ asset('js/akademik.js') }}"></script>
-    <script src="{{ asset('js/santri.js') }}"></script>
-    <script src="{{ asset('js/alumni.js') }}"></script>
-    <script src="{{ asset('js/galeri.js') }}"></script>
-    <script src="{{ asset('js/produk.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/pendaftaran.js') }}"></script>
     @stack('scripts')
 
     <!-- AOS -->

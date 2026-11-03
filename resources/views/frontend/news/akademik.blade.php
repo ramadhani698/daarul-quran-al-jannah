@@ -2,6 +2,10 @@
 
 @section('title', 'Info Akademik')
 
+@push('styles')
+    <link href="{{ asset('css/akademik.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
     {{-- HERO SECTION --}}
@@ -263,3 +267,7 @@
     </main>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/akademik.js') }}"></script>
+@endpush

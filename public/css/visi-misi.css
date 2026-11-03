@@ -1,0 +1,245 @@
+/* =============================
+   SECTION VISI MISI
+============================= */
+
+/* --- Hero Image --- */
+.visi-misi-hero {
+  position: relative;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+.visi-misi-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.visi-misi-hero:hover img {
+  transform: scale(1.03);
+}
+
+.visi-misi-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%);
+}
+
+.visi-misi-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.visi-misi-eyebrow {
+  color: var(--secondary-color);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Title (di atas gambar) --- */
+.visi-misi-title {
+  text-align: center;
+  margin-bottom: 0;
+  color: #fff;
+  position: relative;
+  font-size: 2.25rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.visi-misi-title::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 0%;
+  background-color: var(--secondary-color);
+  animation: underlineGrow 1.5s ease-out 0.5s both;
+}
+
+@keyframes underlineGrow {
+  to { width: 70px; left: 50%; transform: translateX(-50%); }
+}
+
+/* --- Visi & Misi Cards --- */
+.visi-misi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.visi-misi-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2.5rem 2rem;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid var(--primary-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.visi-misi-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 3px 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.visi-misi-card.misi-card {
+  border-top-color: var(--accent-color);
+}
+
+.visi-misi-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 1.25rem;
+  background: rgba(167, 14, 19, 0.1); /* primary-color soft */
+  color: var(--primary-color);
+}
+
+.misi-card .visi-misi-icon {
+  background: rgba(78, 115, 58, 0.12); /* accent-color soft */
+  color: var(--accent-color);
+}
+
+/* --- Title & paragraph di dalam card --- */
+.visi-title,
+.misi-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+}
+
+.misi-title {
+  color: var(--accent-color);
+}
+
+.visi-paragraph,
+.misi-paragraph {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: var(--secondary-text);
+  text-align: justify;
+}
+
+/* =====================================================
+   RESPONSIVE - Halaman Visi Misi
+   Tempel di PALING BAWAH file CSS ini.
+   Blok lama `@media (max-width: 768px)` HARUS dihapus dulu,
+   isinya (grid 1 kolom, hero 220px, judul 1.6rem) sudah
+   dipindah ke sini.
+   Urutan: besar -> kecil. JANGAN dibalik.
+   ===================================================== */
+
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero ----- */
+  .visi-misi-hero { height: 280px; }
+  .visi-misi-title { font-size: 2rem; }
+
+  /* ----- Cards: masih 2 kolom, tapi lebih rapat ----- */
+  .visi-misi-grid { gap: 1.5rem; }
+  .visi-misi-card { padding: 2rem 1.5rem; }
+
+  /* kolom sempit: justify bikin spasi antar kata bolong-bolong */
+  .visi-paragraph,
+  .misi-paragraph { text-align: left; }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)  -> cards 1 kolom
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* .py-5 Bootstrap pakai !important, jadi harus !important juga */
+  .visi-misi-section.py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* ----- Hero ----- */
+  .visi-misi-hero {
+    height: 220px;
+    margin-bottom: 2rem;
+  }
+
+  .visi-misi-title { font-size: 1.7rem; }
+
+  /* ----- Cards ----- */
+  .visi-misi-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .visi-misi-card { padding: 1.75rem 1.5rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .visi-misi-hero {
+    height: 180px;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .visi-misi-hero-overlay { padding: 0 16px; }
+
+  .visi-misi-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+  }
+
+  .visi-misi-title { font-size: 1.4rem; }
+
+  /* ----- Cards ----- */
+  .visi-misi-card { padding: 1.5rem 1.25rem; }
+
+  .visi-misi-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
+
+  .visi-title,
+  .misi-title { font-size: 1.3rem; }
+
+  .visi-paragraph,
+  .misi-paragraph {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}

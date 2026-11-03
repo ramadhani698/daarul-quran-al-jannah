@@ -18,7 +18,9 @@ class ProgramDonasiController extends Controller
     {
         $tab = $request->get('tab', 'aktif');
 
-        $query = ProgramDonasi::with('kategori')->withCount('donasis');
+        $query = ProgramDonasi::with('kategori')
+            ->withCount('donasis')
+            ->withSum(['donasis as terkumpul' => fn ($q) => $q->where('status', 'verified')], 'nominal');
 
         match ($tab) {
             'berakhir' => $query->whereNotNull('tanggal_selesai')->where('tanggal_selesai', '<', now()),

@@ -56,8 +56,13 @@ class NewsController extends Controller
 
     public function alumni()
     {
-        $sebaran = Alumni::sebaran()->aktif()->get();
-        $kiprah  = Alumni::kiprah()->aktif()->get();
+        $sebaran = Alumni::sebaran()->aktif()
+            ->paginate(6, ['*'], 'sebaran_page')
+            ->withQueryString();
+
+        $kiprah = Alumni::kiprah()->aktif()
+            ->paginate(6, ['*'], 'kiprah_page')
+            ->withQueryString();
 
         return view('frontend.news.alumni', compact('sebaran', 'kiprah'));
     }

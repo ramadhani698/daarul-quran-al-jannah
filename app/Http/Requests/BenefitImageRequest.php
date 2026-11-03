@@ -23,9 +23,9 @@ class BenefitImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'left_image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-            'center_image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-            'right_image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'left_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'center_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'right_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 }

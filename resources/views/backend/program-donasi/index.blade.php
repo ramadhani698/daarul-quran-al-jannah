@@ -69,7 +69,7 @@
                             {{ $program->tanggal_selesai ? $program->tanggal_selesai->format('d/m/Y') : 'Tanpa batas' }}
                         </td>
                         <td style="min-width: 140px;">
-                            @if ($program->target_donasi)
+                            @if ($program->target_donasi && $program->target_donasi > 0)
                                 <div class="progress" style="height: 6px;">
                                     <div class="progress-bar bg-success" style="width: {{ $program->persentase }}%"></div>
                                 </div>

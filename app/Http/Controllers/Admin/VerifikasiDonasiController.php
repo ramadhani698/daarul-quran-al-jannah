@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VerifikasiDonasiRequest;
 use App\Models\Donasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class VerifikasiDonasiController extends Controller
 {
@@ -45,23 +47,53 @@ class VerifikasiDonasiController extends Controller
         return view('backend.donasi.verifikasi', compact('donasi', 'title'));
     }
 
+    public function bukti(Donasi $donasi)
+    {
+        abort_unless($donasi->bukti_transfer, 404);
+
+        if (Storage::disk('local')->exists($donasi->bukti_transfer)) {
+            return Storage::disk('local')->response($donasi->bukti_transfer);
+        }
+
+        if (Storage::disk('public')->exists($donasi->bukti_transfer)) {
+            return Storage::disk('public')->response($donasi->bukti_transfer);
+        }
+
+        abort(404);
+    }
+
     public function update(VerifikasiDonasiRequest $request, Donasi $donasi)
     {
-        if ($request->status === 'verified' && blank($donasi->bukti_transfer)) {
-            return back()->withErrors([
-                'status' => 'Donasi belum bisa diverifikasi karena donatur belum upload bukti transfer.',
-            ]);
-        }
-        $donasi->update($request->validated());
+        return DB::transaction(function () use ($request, $donasi) {
+            $lockedDonasi = Donasi::where('id', $donasi->id)->lockForUpdate()->firstOrFail();
 
-        $routeTujuan = $donasi->program->is_umum
-            ? 'admin.donasi.non-program'
-            : 'admin.donasi.program';
+            // status guard: tolak kalau status berubah sejak halaman dibuka
+            if ($lockedDonasi->status !== $request->input('status_awal')) {
+                return back()->withErrors([
+                    'status' => 'Status donasi ini sudah berubah (diproses admin lain atau donatur kirim ulang bukti). Muat ulang halaman untuk melihat status terbaru.',
+                ]);
+            }
 
-        $pesan = $donasi->status === 'verified'
-            ? 'Donasi berhasil diverifikasi.'
-            : 'Donasi ditolak.';
+            if ($request->status === 'verified' && blank($lockedDonasi->bukti_transfer)) {
+                return back()->withErrors([
+                    'status' => 'Donasi belum bisa diverifikasi karena donatur belum upload bukti transfer.',
+                ]);
+            }
 
-        return redirect()->route($routeTujuan)->with('success', $pesan);
+            $lockedDonasi->forceFill([
+                'status' => $request->validated('status'),
+                'catatan_admin' => $request->validated('catatan_admin'),
+            ])->save();
+
+            $routeTujuan = $lockedDonasi->program && $lockedDonasi->program->is_umum
+                ? 'admin.donasi.non-program'
+                : 'admin.donasi.program';
+
+            $pesan = $lockedDonasi->status === 'verified'
+                ? 'Donasi berhasil diverifikasi.'
+                : 'Donasi ditolak.';
+
+            return redirect()->route($routeTujuan)->with('success', $pesan);
+        });
     }
 }

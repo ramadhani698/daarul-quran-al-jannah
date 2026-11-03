@@ -25,6 +25,7 @@ class VerifikasiDonasiRequest extends FormRequest
     {
         return [
             'status' => ['required', Rule::in(['verified', 'rejected'])],
+            'status_awal' => ['required', Rule::in(['pending', 'verified', 'rejected'])],
             'catatan_admin' => [
                 Rule::requiredIf(fn () => $this->status === 'rejected'),
                 'nullable',
@@ -38,8 +39,19 @@ class VerifikasiDonasiRequest extends FormRequest
     {
         return [
             'status.required' => 'Status verifikasi wajib dipilih.',
+            'status_awal.required' => 'Halaman sudah kedaluwarsa, silakan buka ulang detail donasi.',
             'status.in' => 'Status tidak valid.',
             'catatan_admin.required_if' => 'Catatan wajib diisi jika donasi ditolak.',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $donasi = $this->route('donasi');
+            if ($this->status === 'verified' && empty($donasi->bukti_transfer)) {
+                $validator->errors()->add('status', 'Donasi tidak dapat diverifikasi karena donatur belum mengunggah bukti transfer.');
+            }
+        });
     }
 }

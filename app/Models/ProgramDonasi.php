@@ -41,7 +41,7 @@ class ProgramDonasi extends Model
 
     public function getTerkumpulAttribute()
     {
-        return $this->donasisVerified()->sum('nominal');
+        return (float) ($this->attributes['terkumpul'] ?? $this->donasisVerified()->sum('nominal'));
     }
 
     public function getPersentaseAttribute()
@@ -54,7 +54,7 @@ class ProgramDonasi extends Model
 
     public function getJumlahDonaturAttribute()
     {
-        return $this->donasisVerified()->count();
+        return (int) ($this->attributes['jumlah_donatur'] ?? $this->donasisVerified()->count());
     }
 
     public function getSudahBerakhirAttribute()
@@ -66,8 +66,12 @@ class ProgramDonasi extends Model
     {
         return $query->where('is_active', true)
             ->where(function ($q) {
+                $q->whereNull('tanggal_mulai')
+                    ->orWhereDate('tanggal_mulai', '<=', now()->toDateString());
+            })
+            ->where(function ($q) {
                 $q->whereNull('tanggal_selesai')
-                ->orWhereDate('tanggal_selesai', '>=', now()->toDateString());
+                    ->orWhereDate('tanggal_selesai', '>=', now()->toDateString());
             });
     }
 

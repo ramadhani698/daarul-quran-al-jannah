@@ -23,7 +23,7 @@
             <ul class="navbar-nav mx-auto align-items-lg-center">
 
                 <li class="nav-item">
-                    <a href="/" class="nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-link">Home</a>
                 </li>
 
                 <!-- PROFIL -->
@@ -40,19 +40,19 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item" href="/sejarah">
+                            <a class="dropdown-item" href="{{ route('sejarah') }}">
                                 Sejarah Pesantren
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="/visi-misi">
+                            <a class="dropdown-item" href="{{ route('visi-misi') }}">
                                 Visi Misi
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="/daqu-method">
+                            <a class="dropdown-item" href="{{ route('daqu-method') }}">
                                 Daqu Method
                             </a>
                         </li>
@@ -74,25 +74,25 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item" href="/berita">
+                            <a class="dropdown-item" href="{{ route('berita.index') }}">
                                 Berita Pilihan
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="/info-akademik">
+                            <a class="dropdown-item" href="{{ route('news.info-akademik') }}">
                                 Info Akademik
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="/info-santri">
+                            <a class="dropdown-item" href="{{ route('news.info-santri') }}">
                                 Info Santri
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="/info-alumni">
+                            <a class="dropdown-item" href="{{ route('news.alumni') }}">
                                 Info Alumni
                             </a>
                         </li>
@@ -101,21 +101,21 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/galeri" class="nav-link">Galeri</a>
+                    <a href="{{ route('galeri.index') }}" class="nav-link">Galeri</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/pendaftaran" class="nav-link">Pendaftaran</a>
+                    <a href="{{ route('pendaftaran') }}" class="nav-link">Pendaftaran</a>
                 </li>
 
             </ul>
 
             <!-- BUTTON DONASI -->
             <div class="d-flex align-items-center gap-2">
-                <a href="/produk" class="btn btn-keranjang" title="Produk Pesantren">
+                <a href="{{ route('produk.index') }}" class="btn btn-keranjang" title="Produk Pesantren">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <a href="/donasi" class="btn btn-donasi" target="_blank">
+                <a href="{{ route('donasi.index') }}" class="btn btn-donasi" target="_blank">
                     <i class="fas fa-donate"></i>
                 </a>
             </div>
@@ -153,7 +153,7 @@
         <ul class="navbar-nav">
 
             <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
+                <a href="{{ route('home') }}" class="nav-link">Home</a>
             </li>
 
             <!-- PROFIL -->
@@ -170,15 +170,15 @@
 
                 <div class="collapse mobile-submenu" id="profilMenu">
 
-                    <a href="/sejarah" class="submenu-link">
+                    <a href="{{ route('sejarah') }}" class="submenu-link">
                         Sejarah Pesantren
                     </a>
 
-                    <a href="/visi-misi" class="submenu-link">
+                    <a href="{{ route('visi-misi') }}" class="submenu-link">
                         Visi Misi
                     </a>
 
-                    <a href="/daqu-method" class="submenu-link">
+                    <a href="{{ route('daqu-method') }}" class="submenu-link">
                         Daqu Method
                     </a>
 
@@ -200,19 +200,19 @@
 
                 <div class="collapse mobile-submenu" id="newsMenu">
 
-                    <a href="/berita" class="submenu-link">
+                    <a href="{{ route('berita.index') }}" class="submenu-link">
                         Berita Pilihan
                     </a>
 
-                    <a href="/info-akademik" class="submenu-link">
+                    <a href="{{ route('news.info-akademik') }}" class="submenu-link">
                         Info Akademik
                     </a>
 
-                    <a href="/info-santri" class="submenu-link">
+                    <a href="{{ route('news.info-santri') }}" class="submenu-link">
                         Info Santri
                     </a>
 
-                    <a href="/info-alumni" class="submenu-link">
+                    <a href="{{ route('news.alumni') }}" class="submenu-link">
                         Info Alumni
                     </a>
 
@@ -221,22 +221,22 @@
             </li>
 
             <li class="nav-item">
-                <a href="/galeri" class="nav-link">Galeri</a>
+                <a href="{{ route('galeri.index') }}" class="nav-link">Galeri</a>
             </li>
 
             <li class="nav-item">
-                <a href="/pendaftaran" class="nav-link">Pendaftaran</a>
+                <a href="{{ route('pendaftaran') }}" class="nav-link">Pendaftaran</a>
             </li>
 
         </ul>
 
         <!-- BUTTON -->
         <div class="d-flex gap-2 mt-4">
-            <a href="/produk" class="btn btn-keranjang-mobile">
+            <a href="{{ route('produk.index') }}" class="btn btn-keranjang-mobile">
                 <i class="fas fa-shopping-cart"></i>
                 Produk
             </a>
-            <a href="#" class="btn btn-donasi-mobile">
+            <a href="{{ route('donasi.index') }}" class="btn btn-donasi-mobile">
                 <i class="fas fa-donate"></i>
                 Donasi
             </a>

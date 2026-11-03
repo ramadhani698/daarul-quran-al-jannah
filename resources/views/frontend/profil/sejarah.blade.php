@@ -2,85 +2,75 @@
 
 @section('title', 'Sejarah Pesantren')
 
+@push('styles')
+    <link href="{{ asset('css/sejarah.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
-    @if (isset($sejarahs['pesantren']))
-        @php
-            $pesantren = $sejarahs['pesantren']; 
-        @endphp
+    @php
+        // key data => sisi gambar. Mau nambah bagian baru (misal 'tokoh'), cukup tambah satu baris.
+        $bagian = [
+            'pesantren' => 'left',
+            'yayasan'   => 'right',
+        ];
+    @endphp
 
-        <section class="container py-5 sejarah-section" style="margin-top: 70px;">
-            <div class="sejarah-content sejarah-wrap" data-aos="fade-up">
-                <h2 class="mb-3">{{ $pesantren->judul }}</h2>
+    <div class="sejarah-page">
 
-                <div class="sejarah-image float-left-img">
+        @foreach ($bagian as $key => $posisiGambar)
+            @isset($sejarahs[$key])
 
-                    @if ($pesantren->images->isNotEmpty())
+                @php
+                    $sejarah    = $sejarahs[$key];
+                    $carouselId = 'carousel' . ucfirst($key);
+                @endphp
 
-                        <div id="carouselPesantren" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
+                <section class="py-5 sejarah-section">
+                    <div class="container-fluid px-3 px-md-4 px-xl-5">
+                        <div class="sejarah-content sejarah-wrap" data-aos="fade-up">
 
-                                @foreach ($pesantren->images as $image)
-                                    <div class="carousel-item @if ($loop->first) active @endif">
-                                        <img src="{{ $image->url }}" class="d-block w-100 rounded" alt="{{ $pesantren->judul }} {{ $loop->iteration }}">
+                            <h2 class="mb-3">{{ $sejarah->judul }}</h2>
+
+                            {{-- Gambar mengambang ke kiri/kanan, teks mengalir di sisi lain & bawahnya --}}
+                            @if ($sejarah->images->isNotEmpty())
+                                <div class="sejarah-image float-{{ $posisiGambar }}-img">
+                                    <div id="{{ $carouselId }}" class="carousel slide" data-bs-ride="carousel">
+
+                                        <div class="carousel-inner">
+                                            @foreach ($sejarah->images as $image)
+                                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                                    <img src="{{ $image->url }}"
+                                                         class="d-block w-100 rounded"
+                                                         alt="{{ $sejarah->judul }} {{ $loop->iteration }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        @if ($sejarah->images->count() > 1)
+                                            <button class="carousel-control-prev" type="button"
+                                                    data-bs-target="#{{ $carouselId }}" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon"></span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                    data-bs-target="#{{ $carouselId }}" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon"></span>
+                                            </button>
+                                        @endif
+
                                     </div>
-                                @endforeach
-
-                            </div>
-
-                            @if ($pesantren->images->count() > 1)
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPesantren" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselPesantren" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </button>
+                                </div>
                             @endif
+
+                            <p>{!! nl2br(e($sejarah->konten)) !!}</p>
+
                         </div>
+                    </div>
+                </section>
 
-                    @endif
-                </div>
+            @endisset
+        @endforeach
 
-                <p>{!! nl2br($pesantren->konten) !!}</p>
-            </div>
-        </section>
-    @endif
-
-    @if (isset($sejarahs['yayasan']))
-        @php $yayasan = $sejarahs['yayasan']; @endphp
-
-        <section class="container py-5 sejarah-section">
-            <div class="sejarah-content sejarah-wrap" data-aos="fade-up">
-                <h2 class="mb-3">{{ $yayasan->judul }}</h2>
-
-                {{-- Gambar mengambang di KANAN, teks mengalir di kiri & bawah --}}
-                <div class="sejarah-image float-right-img">
-                    @if ($yayasan->images->isNotEmpty())
-                        <div id="carouselYayasan" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                @foreach ($yayasan->images as $image)
-                                    <div class="carousel-item @if ($loop->first) active @endif">
-                                        <img src="{{ $image->url }}" class="d-block w-100 rounded"
-                                             alt="{{ $yayasan->judul }} {{ $loop->iteration }}">
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            @if ($yayasan->images->count() > 1)
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselYayasan" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselYayasan" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </button>
-                            @endif
-                        </div>
-                    @endif
-                </div>
-
-                <p>{!! nl2br($yayasan->konten) !!}</p>
-            </div>
-        </section>
-    @endif
+    </div>
 
 @endsection
