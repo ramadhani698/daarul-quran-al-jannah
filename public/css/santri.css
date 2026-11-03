@@ -349,3 +349,163 @@
     display: flex;
     justify-content: center;
 }
+
+/* =====================================================
+   RESPONSIVE - Halaman Info Santri
+   Tempel di PALING BAWAH file CSS ini.
+   CSS asli belum punya @media, jadi nggak ada yang perlu dihapus.
+   Urutan: besar -> kecil. JANGAN dibalik.
+   ===================================================== */
+
+
+/* =====================================================
+   LAPTOP KECIL KEBAWAH (<= 1199px)
+   ===================================================== */
+@media (max-width: 1199.98px) {
+
+  .prestasi-grid { gap: 1.5rem; }
+}
+
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)  -> grid prestasi 2 kolom
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero: tinggi ngikutin isi (dulu fixed 400px, isinya bisa kepotong) ----- */
+  .hero-section-santri {
+    height: auto;
+    min-height: 360px;
+    padding: 3.5rem 0 4rem;
+    border-radius: 0 0 32px 32px;
+  }
+
+  .hero-title { font-size: 2.2rem; }
+  .hero-ayat { font-size: 1.65rem; }
+
+  /* ----- Grid prestasi: 2 kolom (minmax(0,1fr) biar teks panjang ga bikin melebar) ----- */
+  .prestasi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* card sama tinggi dalam satu baris */
+  .prestasi-grid .wrapper,
+  .prestasi-card { height: 100%; }
+
+  /* nama / kelas / tahun boleh turun baris kalau sempit */
+  .prestasi-profile {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+}
+
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-santri {
+    min-height: 340px;
+    padding: 3rem 0 3.5rem;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .hero-content { padding: 16px 20px 0; }
+
+  .hero-title { font-size: 2rem; }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+  }
+
+  .hero-ayat {
+    font-size: 1.5rem;
+    line-height: 1.9;
+  }
+
+  .hero-ayat-latin { font-size: 0.75rem; }
+
+  /* ornamen sudut dikecilin & dirapetin ke pojok */
+  .hero-corner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-corner-tl,
+  .hero-corner-tr { top: 16px; }
+
+  .hero-corner-bl,
+  .hero-corner-br { bottom: 24px; }
+
+  .hero-corner-tl,
+  .hero-corner-bl { left: 16px; }
+
+  .hero-corner-tr,
+  .hero-corner-br { right: 16px; }
+
+  /* ----- Prestasi ----- */
+  .prestasi-section { padding: 2.5rem 0; }
+  .prestasi-header { margin-bottom: 2rem; }
+  .prestasi-title { font-size: 1.7rem; }
+  .prestasi-pagination { margin-top: 2rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)  -> grid prestasi 1 kolom
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-santri {
+    min-height: 0;
+    padding: 2.5rem 0 3rem;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .hero-corner { display: none; }
+
+  .hero-content { padding: 8px 16px 0; }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title { font-size: 1.7rem; }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-ornament { margin-bottom: 16px; }
+
+  .hero-ayat { font-size: 1.3rem; }
+  .hero-ayat-latin { font-size: 0.72rem; }
+
+  /* ----- Prestasi ----- */
+  .prestasi-section { padding: 2rem 0; }
+  .prestasi-header { margin-bottom: 1.5rem; }
+  .prestasi-title { font-size: 1.5rem; }
+
+  .prestasi-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .prestasi-image { height: 11rem; }
+
+  .prestasi-content { padding: 1.25rem; }
+
+  .prestasi-card { overflow-wrap: break-word; }
+
+  /* nomor halaman banyak: turun baris, jangan meluber */
+  .prestasi-pagination .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

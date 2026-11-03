@@ -1,0 +1,142 @@
+/* =============================
+   SECTION SEJARAH PESANTREN
+============================= */
+.sejarah-page { margin-top: 55px; }
+.sejarah-section {
+  background-color: var(--supporting-color);
+}
+
+/* Wrapper: clearfix supaya tinggi section tetap menyesuaikan
+   elemen float di dalamnya (float keluar dari normal flow,
+   tanpa ini tinggi parent bisa collapse jadi 0) */
+.sejarah-wrap {
+  overflow: hidden;
+}
+
+.sejarah-image .carousel-inner,
+.sejarah-image .carousel-item {
+  height: 320px;
+}
+
+.sejarah-image .carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.sejarah-image img {
+  border-radius: 12px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.sejarah-image img:hover {
+  transform: scale(1.02);
+}
+
+/* Gambar mengambang di kiri, teks mengalir di sisi kanan & bawahnya */
+.sejarah-image.float-left-img {
+  float: left;
+  width: 45%;
+  margin: 0.25rem 1.75rem 1rem 0;
+}
+
+/* Gambar mengambang di kanan, teks mengalir di sisi kiri & bawahnya */
+.sejarah-image.float-right-img {
+  float: right;
+  width: 45%;
+  margin: 0.25rem 0 1rem 1.75rem;
+}
+
+.sejarah-content h2 {
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.sejarah-content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: var(--secondary-text);
+  text-align: justify;
+}
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  .sejarah-page { margin-top: 70px; }
+  .sejarah-image .carousel-inner,
+  .sejarah-image .carousel-item {
+    height: 280px;
+  }
+
+  .sejarah-content h2 { font-size: 1.8rem; }
+
+  .sejarah-content p { text-align: left; }
+}
+
+
+/* =====================================================
+   TABLET (768px - 991px)  -> masih float, gambar dikecilin
+   Pakai range biar ga nimpa rule <= 767px bawaan
+   ===================================================== */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+  .sejarah-image.float-left-img,
+  .sejarah-image.float-right-img {
+    width: 42%;
+  }
+
+  .sejarah-image.float-left-img { margin: 0.25rem 1.25rem 1rem 0; }
+  .sejarah-image.float-right-img { margin: 0.25rem 0 1rem 1.25rem; }
+}
+
+
+/* =====================================================
+   HP BESAR (<= 767px)  -> gambar udah stack di atas teks
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* .py-5 Bootstrap pakai !important, jadi harus !important juga */
+  .sejarah-section.py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .sejarah-image.float-left-img,
+  .sejarah-image.float-right-img {
+    float: none;
+    width: 100%;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .sejarah-image .carousel-inner,
+  .sejarah-image .carousel-item {
+    height: 260px;
+  }
+
+  .sejarah-content h2 { font-size: 1.6rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  .sejarah-image .carousel-inner,
+  .sejarah-image .carousel-item {
+    height: 220px;
+  }
+
+  .sejarah-content h2 { font-size: 1.5rem; }
+
+  .sejarah-content p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}

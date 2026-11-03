@@ -26,8 +26,8 @@ class CarouselRequest extends FormRequest
 
         return [
             'image' => $isUpdate
-                ? 'nullable|image|mimes:jpeg,jpg,png,webp'
-                : 'required|image|mimes:jpeg,jpg,png,webp',
+                ? 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048'
+                : 'required|image|mimes:jpeg,jpg,png,webp|max:2048',
 
             'order' => 'required|integer',
             'is_active' => 'nullable|boolean',

@@ -5,13 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Prunable;
 
 class Donasi extends Model
 {
+    use Prunable;
+
+    public function prunable()
+    {
+        return static::where('status', 'pending')
+            ->whereNull('bukti_transfer')
+            ->where('created_at', '<=', now()->subDays(7));
+    }
+    
     protected $fillable = [
         'program_donasi_id', 'kode_donasi', 'nama_donatur', 'no_hp',
         'is_anonim', 'nominal', 'metode_pembayaran', 'bukti_transfer', 'pesan_doa',
-        'status', 'catatan_admin',
     ];
 
     protected $casts = [

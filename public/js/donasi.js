@@ -1,34 +1,3 @@
-// Carousel auto-slide + dots
-(function () {
-    const track = document.getElementById('donasiCarouselTrack');
-    const dotsWrap = document.getElementById('donasiCarouselDots');
-    if (!track || !dotsWrap) return;
-    const slides = track.querySelectorAll('.donasi-carousel__slide');
-    if (slides.length === 0) return;
-
-    slides.forEach((slide, i) => {
-        const dot = document.createElement('span');
-        if (i === 0) dot.classList.add('is-active');
-        dot.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(dot);
-    });
-    const dots = dotsWrap.querySelectorAll('span');
-
-    let current = 0;
-    function goTo(index) {
-        slides[current].classList.remove('is-active');
-        dots[current].classList.remove('is-active');
-        current = index;
-        slides[current].classList.add('is-active');
-        dots[current].classList.add('is-active');
-    }
-    slides[0].classList.add('is-active');
-
-    setInterval(() => {
-        goTo((current + 1) % slides.length);
-    }, 4000);
-})();
-
 // Partikel geometris ambient di hero — pola sama kayak hero galeri
 (function () {
     const canvas = document.getElementById('donasiParticles');

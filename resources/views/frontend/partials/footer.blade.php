@@ -19,26 +19,26 @@
                     <div class="col-4 mb-4">
                         <h5 class="footer-title">Profil</h5>
                         <ul class="footer-links">
-                            <li><a href="#">Sejarah Pesantren</a></li>
-                            <li><a href="#">Visi dan Misi</a></li>
-                            <li><a href="#">Daqu Method</a></li>
+                            <li><a href="{{ route('sejarah') }}">Sejarah Pesantren</a></li>
+                            <li><a href="{{ route('visi-misi') }}">Visi dan Misi</a></li>
+                            <li><a href="{{ route('daqu-method') }}">Daqu Method</a></li>
                         </ul>
                     </div>
 
                     <div class="col-4 mb-4">
                         <h5 class="footer-title">News</h5>
                         <ul class="footer-links">
-                            <li><a href="#">Berita Pilihan</a></li>
-                            <li><a href="#">Artikel</a></li>
-                            <li><a href="#">Info Akademik</a></li>
+                            <li><a href="{{ route('berita.index') }}">Berita Pilihan</a></li>
+                            <li><a href="{{ route('berita.index') }}">Artikel</a></li>
+                            <li><a href="{{ route('news.info-akademik') }}">Info Akademik</a></li>
                         </ul>
                     </div>
 
                     <div class="col-4 mb-4">
                         <h5 class="footer-title">Tentang Santri</h5>
                         <ul class="footer-links">
-                            <li><a href="#">Info Santri</a></li>
-                            <li><a href="#">Info Alumni</a></li>
+                            <li><a href="{{ route('news.info-santri') }}">Info Santri</a></li>
+                            <li><a href="{{ route('news.alumni') }}">Info Alumni</a></li>
                         </ul>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
         <hr class="footer-divider">
 
         <p class="footer-copy text-center mt-3 mb-0">
-            &copy; 2025 Pondok Pesantren Tahfidz Daarul Qur'an Al-Jannah
+            &copy; {{ date('Y') }} Pondok Pesantren Tahfidz Daarul Qur'an Al-Jannah
         </p>
     </div>
 </footer>

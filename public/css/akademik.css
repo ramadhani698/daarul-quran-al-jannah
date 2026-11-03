@@ -606,58 +606,258 @@ html {
   z-index: 998;
 }
 
-@media (max-width: 991px) {
+/* =====================================================
+   RESPONSIVE - Halaman Info Akademik
+   Tempel di PALING BAWAH file CSS ini.
+   HAPUS DULU dua blok lama di bawah file:
+     - @media (max-width: 991px)
+     - @media (max-width: 600px)
+   Semua isinya sudah digabung ke sini.
+   Urutan: besar -> kecil. JANGAN dibalik.
+   ===================================================== */
+
+
+/* =====================================================
+   LAPTOP KECIL KEBAWAH (<= 1199px)
+   ===================================================== */
+@media (max-width: 1199.98px) {
+
+  /* sidebar sedikit lebih ramping, konten dapat ruang lebih */
   .akademik-content-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 1.5rem;
   }
 
-  .sidebar-toggle {
-    display: block;
+  .two-column-grid { gap: 1.5rem; }
+}
+
+
+/* =====================================================
+   DESKTOP (>= 992px)
+   ===================================================== */
+@media (min-width: 992px) {
+
+  /* sidebar sticky yang lebih tinggi dari layar tetap bisa di-scroll
+     (misal pengumuman banyak), bukan kepotong */
+  .fixed-sidebar {
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+  }
+}
+
+
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)  -> sidebar jadi off-canvas
+   ===================================================== */
+@media (max-width: 991.98px) {
+
+  /* ----- Hero: tinggi ngikutin isi (dulu fixed 500px, isinya bisa kepotong) ----- */
+  .hero-section-akademik {
+    height: auto;
+    min-height: 460px;
+    padding: 3.5rem 0 4rem;
+    border-radius: 0 0 32px 32px;
   }
 
+  .hero-title { font-size: 2.2rem; }
+  .hero-ayat { font-size: 1.65rem; }
+
+  /* ----- Layout: 1 kolom ----- */
+  .akademik-content-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .akademik-content-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* ----- Tombol menu: nimpa d-md-none Bootstrap yang bikin tombol
+         ngilang di 768-991px padahal sidebar udah off-canvas ----- */
+  .main-content .sidebar-toggle { display: block !important; }
+
+  /* ----- Sidebar off-canvas ----- */
   .fixed-sidebar {
     position: fixed;
     top: 0;
     left: -320px;
-    width: 280px;
+    width: min(280px, 85vw);
     height: 100vh;
+    height: 100dvh;            /* anti kepotong address bar HP */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 9999;
     transition: left 0.3s ease;
-    padding: 1rem;
+    padding: 1.25rem 1rem;
+    border-radius: 0 1rem 1rem 0;
     background: #fff;
   }
 
   .fixed-sidebar.active {
     left: 0;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
   }
+
+  /* overlay nutupin navbar juga (navbar z-index 999) */
+  .sidebar-overlay { z-index: 9998; }
 
   .sidebar-overlay.active {
     opacity: 1;
     visibility: visible;
   }
 
-  .akademik-content-main {
-    width: 100%;
-  }
-
-  body.sidebar-open {
-    overflow: hidden;
-  }
+  body.sidebar-open { overflow: hidden; }
 }
 
-@media (max-width: 600px) {
+
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)
+   ===================================================== */
+@media (max-width: 767.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-akademik {
+    min-height: 420px;
+    padding: 3rem 0 3.5rem;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .hero-content { padding: 16px 20px 0; }
+
+  .hero-title { font-size: 2rem; }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+  }
+
+  .hero-ayat {
+    font-size: 1.5rem;
+    line-height: 1.9;
+  }
+
+  .hero-ayat-latin { font-size: 0.75rem; }
+
+  /* ornamen sudut dikecilin & dirapetin ke pojok */
+  .hero-corner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-corner-tl,
+  .hero-corner-tr { top: 16px; }
+
+  .hero-corner-bl,
+  .hero-corner-br { bottom: 24px; }
+
+  .hero-corner-tl,
+  .hero-corner-bl { left: 16px; }
+
+  .hero-corner-tr,
+  .hero-corner-br { right: 16px; }
+
+  /* ----- Konten ----- */
+  .main-content { padding: 2rem 4%; }
+
+  .akademik-content-main { gap: 1.5rem; }
+  .akademik-content-section { padding: 1.5rem; }
+
+  .section-header h2 { font-size: 1.4rem; }
+
+  /* dulu pindah 1 kolom di 600px, sekarang di 767px */
   .two-column-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .hero-title-akademik {
-    font-size: 2rem;
+  /* tabel: di CSS asli `overflow: hidden` nimpa `overflow-x: auto`,
+     jadi tabel ga bisa di-scroll samping. Ini nyalain lagi. */
+  .table-wrapper { overflow-x: auto; }
+
+  .evaluation-item { padding: 1.25rem; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  .main-content { padding: 1.5rem 4%; }
+
+  .sidebar-toggle {
+    width: 100%;
+    text-align: left;
   }
 
-  .akademik-content-section {
-    padding: 1.5rem;
+  /* ----- Hero ----- */
+  .hero-section-akademik {
+    min-height: 0;
+    padding: 2.5rem 0 3rem;
+    border-radius: 0 0 24px 24px;
   }
+
+  .hero-corner { display: none; }
+
+  .hero-content { padding: 8px 16px 0; }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title { font-size: 1.7rem; }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-ornament { margin-bottom: 16px; }
+
+  .hero-ayat { font-size: 1.3rem; }
+  .hero-ayat-latin { font-size: 0.72rem; }
+
+  /* ----- Konten ----- */
+  .akademik-content-section { padding: 1.25rem 1rem; }
+
+  .section-header { margin-bottom: 1.25rem; }
+
+  .section-bullet {
+    width: 0.6rem;
+    height: 1.6rem;
+    margin-right: 0.6rem;
+  }
+
+  .section-header h2 { font-size: 1.25rem; }
+
+  .subsection-title { font-size: 1.05rem; }
+
+  .subsection-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .evaluation-item { padding: 1rem; }
+
+  .achievement-list { gap: 1rem; }
+
+  .achievement-item {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .achievement-badge {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.1rem;
+  }
+
+  .achievement-title { font-size: 1.05rem; }
 }

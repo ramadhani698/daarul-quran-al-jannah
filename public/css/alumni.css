@@ -325,99 +325,95 @@
 }
 
 /* ============================================================
-   ALUMNI GRID
+   ALUMNI GRID (2 kolom, kartu lebar)
    ============================================================ */
-
+ 
 .alumni-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
     margin-top: 8px;
 }
-
+ 
+/* wrapper (div AOS) ikut tinggi baris, biar semua card sama tinggi */
+.alumni-container .wrapper {
+    height: 100%;
+}
+ 
+ 
 /* ============================================================
    ALUMNI CARD
    ============================================================ */
-
+ 
 .alumni-card {
+    display: flex;
+    height: 100%;
     background: #fff;
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
     border: 0.5px solid #eee;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
-
+ 
 .alumni-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 14px 36px rgba(167, 14, 19, 0.13);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(167, 14, 19, 0.13);
 }
-
-/* ---------- Image ---------- */
-
+ 
+/* ---------- Foto (kolom kiri) ---------- */
+ 
 .alumni-img {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 150px;
     background: linear-gradient(145deg, #f5e8e8, #fdf0e0);
 }
-
+ 
+/* contain = foto tampil UTUH, ga ada yang kepotong.
+   Sisa ruang diisi gradient lembut di belakangnya.
+   (Kalau semua foto lu potret 3:4 dan mau full sampai tepi,
+   ganti jadi: object-fit: cover; object-position: center top;) */
 .alumni-img img {
+    flex: 1 1 auto;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
     display: block;
-    transition: transform 0.45s ease;
 }
-
-.alumni-card:hover .alumni-img img {
-    transform: scale(1.06);
-}
-
-/* Gradient overlay at bottom of image */
-.alumni-img::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(transparent, rgba(30, 5, 5, 0.55));
-    pointer-events: none;
-}
-
-/* ---------- Badge ---------- */
-
+ 
+/* ---------- Badge: strip emas di bawah foto (ga nutupin foto) ---------- */
+ 
 .alumni-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 1;
+    display: block;
     background: var(--secondary-color);
     color: #3a2200;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.4px;
-    padding: 4px 12px;
-    border-radius: 20px;
+    text-align: center;
+    padding: 5px 8px;
 }
-
-/* ---------- Info body ---------- */
-
+ 
+/* ---------- Info (kolom kanan) ---------- */
+ 
 .alumni-info {
-    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 16px 20px;
 }
-
+ 
 .alumni-info h3 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1a1a1a;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     border-bottom: 0.5px solid #f0e8e8;
 }
-
+ 
 .alumni-info p {
     font-size: 0.82rem;
     color: #555;
@@ -427,7 +423,7 @@
     align-items: flex-start;
     gap: 7px;
 }
-
+ 
 /* Dot accent before each meta line */
 .alumni-info p::before {
     content: "·";
@@ -437,23 +433,30 @@
     line-height: 1.3;
     flex-shrink: 0;
 }
-
+ 
+/* jarak sebelum pill juz */
+.alumni-info p:last-of-type {
+    margin-bottom: 12px;
+}
+ 
 /* Description paragraph — italic, muted, no dot */
 .alumni-info p.alumni-desc {
     color: #777;
     font-style: italic;
     margin-top: 8px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
-
+ 
 .alumni-info p.alumni-desc::before {
     content: "";
     display: none;
 }
-
-/* ---------- Juz pill ---------- */
-
+ 
+/* ---------- Juz pill (selalu nempel di bawah card) ---------- */
+ 
 .alumni-juz {
+    align-self: flex-start;
+    margin-top: auto;
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -466,48 +469,145 @@
     border-radius: 20px;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* =====================================================
+   TABLET KEBAWAH (<= 991px)  -> grid masih 2 kolom, foto lebih kecil
+   ===================================================== */
+@media (max-width: 991.98px) {
 
-@media (max-width: 768px) {
+  /* ----- Hero: tinggi ngikutin isi (dulu fixed 400px) ----- */
+  .hero-section-alumni {
+    height: auto;
+    min-height: 380px;
+    padding: 3.5rem 0 4rem;
+    border-radius: 0 0 32px 32px;
+  }
 
-    .hero-section-alumni {
-        height: auto;
-        min-height: 420px;
-        padding: 60px 0 48px;
-        border-radius: 0 0 28px 28px;
-    }
+  .hero-alumni-title { font-size: 2rem; }
 
-    .hero-alumni-title {
-        font-size: 1.7rem;
-    }
-
-    .alumni-container {
-        grid-template-columns: 1fr;
-    }
-
-    .section-alumni-title {
-        font-size: 1.35rem;
-    }
-
+  /* ----- Card ----- */
+  .alumni-img { flex: 0 0 120px; }
+  .alumni-info { padding: 14px 16px; }
 }
 
-@media (max-width: 480px) {
 
-    .hero-alumni-title {
-        font-size: 1.45rem;
-    }
+/* =====================================================
+   HP BESAR / TABLET KECIL (<= 767px)  -> grid 1 kolom
+   ===================================================== */
+@media (max-width: 767.98px) {
 
-    .hero-alumni-subtitle {
-        font-size: 0.9rem;
-    }
+  /* ----- Hero ----- */
+  .hero-section-alumni {
+    min-height: 420px;
+    padding: 60px 0 48px;
+    border-radius: 0 0 28px 28px;
+  }
 
-    .btn-alumni-primary,
-    .btn-alumni-outline {
-        display: block;
-        margin: 6px auto;
-        width: fit-content;
-    }
+  .hero-content-alumni { padding: 0 20px; }
 
+  .hero-alumni-title { font-size: 1.7rem; }
+  .hero-alumni-subtitle { font-size: 0.95rem; }
+
+  /* ornamen sudut dikecilin & dirapetin ke pojok */
+  .alumni-corner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .alumni-corner-tl,
+  .alumni-corner-tr { top: 16px; }
+
+  .alumni-corner-bl,
+  .alumni-corner-br { bottom: 24px; }
+
+  .alumni-corner-tl,
+  .alumni-corner-bl { left: 16px; }
+
+  .alumni-corner-tr,
+  .alumni-corner-br { right: 16px; }
+
+  /* ----- Section ----- */
+  .alumni-prestasi { padding: 40px 0 36px; }
+
+  .section-header-alumni { margin-bottom: 28px; }
+  .section-alumni-title { font-size: 1.35rem; }
+
+  /* ----- Grid: 1 kolom, kartu horizontal tetap lebar & rapi ----- */
+  .alumni-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .alumni-img { flex: 0 0 130px; }
+
+  /* nama / profesi panjang jangan bikin kartu melebar */
+  .alumni-info p { overflow-wrap: anywhere; }
+}
+
+
+/* =====================================================
+   HP (<= 575px)  -> tombol hero ditumpuk, card makin ringkas
+   (dulu breakpoint-nya 480px)
+   ===================================================== */
+@media (max-width: 575.98px) {
+
+  /* ----- Hero ----- */
+  .hero-section-alumni {
+    min-height: 0;
+    padding: 2.75rem 0 3rem;
+    border-radius: 0 0 24px 24px;
+  }
+
+  .alumni-corner { display: none; }
+
+  .hero-content-alumni { padding: 0 16px; }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+  }
+
+  .hero-alumni-title { font-size: 1.45rem; }
+
+  .hero-alumni-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-alumni-ornament { margin-bottom: 20px; }
+
+  /* tombol ditumpuk, lebarnya sama biar rapi */
+  .btn-alumni-primary,
+  .btn-alumni-outline {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    margin: 8px auto;
+    text-align: center;
+  }
+
+  /* ----- Section ----- */
+  .alumni-prestasi { padding: 32px 0 28px; }
+
+  .section-header-alumni { margin-bottom: 24px; }
+  .section-alumni-title { font-size: 1.25rem; }
+  .section-alumni-subtitle { font-size: 0.88rem; }
+
+  /* ----- Card ----- */
+  .alumni-container { gap: 14px; }
+
+  .alumni-img { flex: 0 0 112px; }
+
+  .alumni-info { padding: 14px; }
+  .alumni-info h3 { font-size: 0.95rem; }
+}
+
+
+/* =====================================================
+   HP KECIL BANGET (<= 359px)
+   ===================================================== */
+@media (max-width: 359.98px) {
+
+  .alumni-img { flex: 0 0 96px; }
 }

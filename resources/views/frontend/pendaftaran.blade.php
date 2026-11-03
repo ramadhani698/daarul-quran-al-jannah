@@ -2,6 +2,10 @@
 
 @section('title', 'Pendaftaran Santri')
 
+@push('styles')
+    <link href="{{ asset('css/pendaftaran.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
     <section class="hero-section-pendaftaran" id="pendaftaran">
         <canvas id="hero-canvas-pendaftaran"></canvas>
@@ -58,3 +62,7 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/pendaftaran.js') }}"></script>
+@endpush

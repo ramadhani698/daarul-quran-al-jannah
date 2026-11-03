@@ -9,6 +9,11 @@
 
 @section('title', 'Upload Bukti Transfer — ' . $donasi->kode_donasi)
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/show-donasi.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/upload-bukti.css') }}">
+@endpush
+
 @section('content')
 <section class="donasi-upload">
     @if (session('success'))
@@ -74,7 +79,7 @@
             @csrf
             <label for="bukti_transfer">Bukti Transfer</label>
             <input type="file" name="bukti_transfer" id="bukti_transfer" accept="image/jpeg,image/png,application/pdf" required>
-            <span class="donasi-upload__hint">JPG, PNG, atau PDF, maksimal 2MB.</span>
+            <span class="donasi-upload__hint">JPG, PNG, atau PDF, maksimal 5MB.</span>
             <button type="submit">Kirim Bukti Transfer</button>
         </form>
     </div>
@@ -93,3 +98,8 @@
     </a>
 </section>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/show-donasi.js') }}" defer></script>
+    <script src="{{ asset('js/upload-bukti.js') }}" defer></script>
+@endpush

@@ -2,6 +2,10 @@
 
 @section('title', 'Info Santri')
 
+@push('styles')
+    <link href="{{ asset('css/santri.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
     {{-- HERO SECTION --}}
@@ -117,3 +121,7 @@
     </main>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/santri.js') }}"></script>
+@endpush

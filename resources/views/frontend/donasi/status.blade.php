@@ -3,7 +3,7 @@
 @section('title', 'Status Donasi — ' . $donasi->kode_donasi)
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/status-donasi.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/status.css') }}">
 @endpush
 
 @section('content')
@@ -77,7 +77,7 @@
                 @csrf
                 <label for="bukti_transfer">Bukti Transfer Baru</label>
                 <input type="file" name="bukti_transfer" id="bukti_transfer" accept="image/jpeg,image/png,application/pdf" required>
-                <span class="donasi-status__hint">JPG, PNG, atau PDF, maksimal 2MB.</span>
+                <span class="donasi-status__hint">JPG, PNG, atau PDF, maksimal 5MB.</span>
                 <button type="submit">Kirim Ulang Bukti Transfer</button>
             </form>
         </div>

@@ -6,20 +6,55 @@
 
 @if ($carousels->isNotEmpty())
 <section class="donasi-carousel">
-    <div class="donasi-carousel__track" id="donasiCarouselTrack">
-        @foreach ($carousels as $c)
-            @php $alt = $c->judul ?: 'Banner donasi'; @endphp
+    <div id="donasiCarousel" class="carousel slide carousel-donasi"
+         data-bs-ride="carousel" data-bs-interval="5000" data-bs-wrap="true" data-bs-pause="false">
 
-            @if ($c->isProgram() && $c->program)
-                <a href="{{ route('donasi.show', $c->program->slug) }}" class="donasi-carousel__link">
-                    <img src="{{ asset('storage/' . $c->gambar) }}" alt="{{ $alt }}" class="donasi-carousel__slide">
-                </a>
-            @else
-                <img src="{{ asset('storage/' . $c->gambar) }}" alt="{{ $alt }}" class="donasi-carousel__slide">
-            @endif
-        @endforeach
+        @if ($carousels->count() > 1)
+            <div class="carousel-indicators">
+                @foreach ($carousels as $carousel)
+                    <button
+                        type="button"
+                        data-bs-target="#donasiCarousel"
+                        data-bs-slide-to="{{ $loop->index }}"
+                        class="{{ $loop->first ? 'active' : '' }}"
+                        {{ $loop->first ? 'aria-current=true' : '' }}
+                        aria-label="Slide {{ $loop->iteration }}"
+                    ></button>
+                @endforeach
+            </div>
+        @endif
+
+        <div class="carousel-inner">
+            @foreach ($carousels as $carousel)
+                @php $alt = $carousel->judul ?: 'Banner donasi'; @endphp
+
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    @if ($carousel->isProgram() && $carousel->program)
+                        <a href="{{ route('donasi.show', $carousel->program->slug) }}" class="d-block">
+                            <img src="{{ asset('storage/' . $carousel->gambar) }}"
+                                 class="d-block w-100 donasi-carousel__slide"
+                                 alt="{{ $alt }}" draggable="false">
+                        </a>
+                    @else
+                        <img src="{{ asset('storage/' . $carousel->gambar) }}"
+                             class="d-block w-100 donasi-carousel__slide"
+                             alt="{{ $alt }}" draggable="false">
+                    @endif
+                </div>
+            @endforeach
+        </div>
+
+        @if ($carousels->count() > 1)
+            <button class="carousel-control-prev" type="button" data-bs-target="#donasiCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Sebelumnya</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#donasiCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Berikutnya</span>
+            </button>
+        @endif
     </div>
-    <div class="donasi-carousel__dots" id="donasiCarouselDots"></div>
 </section>
 @endif
 
@@ -114,7 +149,7 @@
                                             <h3 class="donasi-program-card__title">{{ $program->nama_program }}</h3>
                                             <!-- <p class="donasi-program-card__desc">{{ Str::limit($program->deskripsi, 70) }}</p> -->
 
-                                            @if ($program->target_donasi)
+                                            @if ($program->target_donasi && $program->target_donasi > 0)
                                                 <div class="donasi-progress">
                                                     <div class="donasi-progress__bar">
                                                         <div class="donasi-progress__fill" style="width: {{ $program->persentase }}%"></div>

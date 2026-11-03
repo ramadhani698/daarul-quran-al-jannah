@@ -26,7 +26,13 @@ class StoreDonasiRequest extends FormRequest
         return [
             'program_donasi_id' => [
                 'required',
-                Rule::exists('program_donasis', 'id')->where(fn ($q) => $q->where('is_active', true)),
+                Rule::exists('program_donasis', 'id')->where(function ($q) {
+                    $today = now()->toDateString();
+                    $q->where('is_active', true)
+                        ->whereNull('deleted_at')
+                        ->where(fn ($sub) => $sub->whereNull('tanggal_mulai')->orWhereDate('tanggal_mulai', '<=', $today))
+                        ->where(fn ($sub) => $sub->whereNull('tanggal_selesai')->orWhereDate('tanggal_selesai', '>=', $today));
+                }),
             ],
             'nama_donatur' => ['required', 'string', 'max:100'],
             'no_hp' => ['nullable', 'string', 'max:20', 'regex:/^[0-9+\-\s]+$/'],
@@ -40,7 +46,7 @@ class StoreDonasiRequest extends FormRequest
                 'file',
                 'mimes:jpg,jpeg,png,pdf',
                 'mimetypes:image/jpeg,image/png,application/pdf',
-                'max:2048',
+                'max:5120',
             ],
             'pesan_doa' => ['nullable', 'string', 'max:500'],
             'website' => ['prohibited'],
@@ -51,7 +57,7 @@ class StoreDonasiRequest extends FormRequest
     {
         return [
             'program_donasi_id.required' => 'Program donasi tidak valid.',
-            'program_donasi_id.exists' => 'Program donasi tidak ditemukan atau sudah tidak aktif.',
+            'program_donasi_id.exists' => 'Program donasi tidak ditemukan atau sudah tidak aktif/berakhir.',
             'nama_donatur.required' => 'Nama wajib diisi.',
             'no_hp.regex' => 'Format nomor HP tidak valid.',
             'nominal.required' => 'Nominal donasi wajib diisi.',
@@ -59,7 +65,7 @@ class StoreDonasiRequest extends FormRequest
             'nominal.max' => 'Nominal donasi tidak wajar, silakan hubungi admin untuk donasi besar.',
             'bukti_transfer.mimes' => 'Bukti transfer harus berupa file JPG, PNG, atau PDF.',
             'bukti_transfer.mimetypes' => 'Format file bukti transfer tidak valid.',
-            'bukti_transfer.max' => 'Ukuran file bukti transfer maksimal 2MB.',
+            'bukti_transfer.max' => 'Ukuran file bukti transfer maksimal 5MB.',
             'pesan_doa.max' => 'Pesan/doa maksimal 500 karakter.',
         ];
     }

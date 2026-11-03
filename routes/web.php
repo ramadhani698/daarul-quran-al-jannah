@@ -49,25 +49,17 @@ use App\Http\Controllers\Admin\CarouselDonasiController;
 
 
 
-Route::get('/', [FrontendHomeController::class, 'index']);
+Route::get('/', [FrontendHomeController::class, 'index'])->name('home');
 
 Route::get('/sejarah', [FrontendSejarahController::class, 'index'])->name('sejarah');
 
 Route::get('/visi-misi', function () {
     return view('frontend.profil.visi-misi');
-});
+})->name('visi-misi');
 
 Route::get('/daqu-method', function () {
     return view('frontend.profil.daqu-method');
-});
-
-// Route::get('/berita', function () {
-//     return view('frontend.news.berita');
-// });
-
-// Route::get('/info-akademik', function () {
-//     return view('frontend.news.akademik');
-// });
+})->name('daqu-method');
 
 Route::get('/info-akademik', [NewsController::class, 'infoAkademik'])
     ->name('news.info-akademik');
@@ -349,6 +341,8 @@ Route::middleware('auth')
             ->name('donasi.non-program');
         Route::get('donasi/{donasi}/verifikasi', [VerifikasiDonasiController::class, 'show'])
             ->name('donasi.verifikasi');
+        Route::get('donasi/{donasi}/bukti', [VerifikasiDonasiController::class, 'bukti'])
+            ->name('donasi.bukti');
         Route::patch('donasi/{donasi}', [VerifikasiDonasiController::class, 'update'])
             ->name('donasi.update');
 

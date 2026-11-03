@@ -2,6 +2,10 @@
 
 @section('title', 'Produk Pesantren')
 
+@push('styles')
+    <link href="{{ asset('css/produk.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
 {{-- ══ HERO ══ --}}
@@ -148,7 +152,7 @@
                 <p class="prd-card__cat">{{ $produk->kategori }}</p>
                 <h3 class="prd-card__title">{{ $produk->nama }}</h3>
                 <p class="prd-card__desc">
-                    {{ Str::limit($produk->deskripsi, 100) }}
+                    {{ $produk->deskripsi }}
                 </p>
 
                 <div class="prd-card__foot">

@@ -3,7 +3,7 @@
 @section('title', $program->nama_program . ' — Amal Jariyah')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/show-donasi.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/show-donasi.css') }}">
 @endpush
 
 @section('content')
@@ -19,7 +19,7 @@
         <h1 class="donasi-show__title">{{ $program->nama_program }}</h1>
         <p class="donasi-show__desc">{{ $program->deskripsi }}</p>
 
-        @if ($program->target_donasi)
+        @if ($program->target_donasi && $program->target_donasi > 0)
             <div class="donasi-progress">
                 <div class="donasi-progress__bar">
                     <div class="donasi-progress__fill" style="width: {{ $program->persentase }}%"></div>
@@ -147,3 +147,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/show-donasi.js') }}" defer></script>
+@endpush

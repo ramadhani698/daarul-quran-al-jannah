@@ -2,6 +2,10 @@
 
 @section('title', 'Galeri')
 
+@push('styles')
+    <link href="{{ asset('css/galeri.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
     {{-- HERO SECTION GALERI --}}
@@ -119,3 +123,7 @@
     </script>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/galeri.js') }}"></script>
+@endpush

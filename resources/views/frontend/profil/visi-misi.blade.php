@@ -2,6 +2,10 @@
 
 @section('title', 'Visi Misi')
 
+@push('styles')
+    <link href="{{ asset('css/visi-misi.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
     <section class="container py-5 visi-misi-section" style="margin-top: 70px;">
@@ -19,31 +23,35 @@
         <div class="visi-misi-grid">
 
             {{-- Visi --}}
-            <div class="visi-misi-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="visi-misi-icon">
-                    <i class="fas fa-eye"></i>
+            <div class="visi-misi-wrapper" data-aos="fade-up" data-aos-delay="100">
+                <div class="visi-misi-card">
+                    <div class="visi-misi-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4 class="visi-title">Visi</h4>
+                    <p class="visi-paragraph">
+                        Melahirkan generasi pemimpin bangsa dan dunia
+                        yang shaleh dan berkarakter Qur'an serta
+                        berjiwa entrepreneur dalam membangun
+                        peradaban Islam masa depan.
+                    </p>
                 </div>
-                <h4 class="visi-title">Visi</h4>
-                <p class="visi-paragraph">
-                    Melahirkan generasi pemimpin bangsa dan dunia
-                    yang shaleh dan berkarakter Qur'an serta
-                    berjiwa entrepreneur dalam membangun
-                    peradaban Islam masa depan.
-                </p>
             </div>
 
             {{-- Misi --}}
-            <div class="visi-misi-card misi-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="visi-misi-icon">
-                    <i class="fas fa-flag"></i>
+            <div class="visi-misi-wrapper" data-aos="fade-up" data-aos-delay="200">
+                <div class="visi-misi-card misi-card">
+                    <div class="visi-misi-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h4 class="misi-title">Misi</h4>
+                    <p class="misi-paragraph">
+                        Mewujudkan lembaga pendidikan berbasis
+                        Daqu Method (Iqoomatu Waajib wa Ihyaaussunnah)
+                        yang unggul, kompetitif, global,
+                        dan rahmatan lil 'alamin.
+                    </p>
                 </div>
-                <h4 class="misi-title">Misi</h4>
-                <p class="misi-paragraph">
-                    Mewujudkan lembaga pendidikan berbasis
-                    Daqu Method (Iqoomatu Waajib wa Ihyaaussunnah)
-                    yang unggul, kompetitif, global,
-                    dan rahmatan lil 'alamin.
-                </p>
             </div>
 
         </div>

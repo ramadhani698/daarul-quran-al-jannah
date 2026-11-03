@@ -28,7 +28,7 @@ class ResubmitDonasiRequest extends FormRequest
                 'file',
                 'mimes:jpg,jpeg,png,pdf',
                 'mimetypes:image/jpeg,image/png,application/pdf',
-                'max:10840',
+                'max:5120',
             ],
         ];
     }
@@ -39,7 +39,7 @@ class ResubmitDonasiRequest extends FormRequest
             'bukti_transfer.required' => 'Bukti transfer baru wajib diunggah.',
             'bukti_transfer.mimes' => 'Bukti transfer harus berupa file JPG, PNG, atau PDF.',
             'bukti_transfer.mimetypes' => 'Format file bukti transfer tidak valid.',
-            'bukti_transfer.max' => 'Ukuran file bukti transfer maksimal 2MB.',
+            'bukti_transfer.max' => 'Ukuran file bukti transfer maksimal 5MB.',
         ];
     }
 }

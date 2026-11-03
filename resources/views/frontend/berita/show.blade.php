@@ -2,6 +2,10 @@
 
 @section('title', $berita->judul)
 
+@push('styles')
+    <link href="{{ asset('css/show.css') }}" rel="stylesheet">
+@endpush
+
 @section('meta')
     <meta name="description" content="{{ $berita->excerpt }}">
     <meta property="og:title" content="{{ $berita->judul }}">
@@ -49,7 +53,7 @@
                 </header>
 
                 <div class="berita-article-body">
-                    {!! nl2br($berita->konten) !!}
+                    {!! nl2br(e($berita->konten)) !!}
                 </div>
 
                 {{-- Share & Navigasi --}}

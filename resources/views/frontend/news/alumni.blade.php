@@ -2,6 +2,10 @@
 
 @section('title', 'Info Alumni')
 
+@push('styles')
+    <link href="{{ asset('css/alumni.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 
     {{-- HERO SECTION --}}
@@ -100,6 +104,13 @@
                 @endforeach
             </div>
 
+            {{-- PAGINATION SEBARAN --}}
+            @if($sebaran->hasPages())
+                <div class="text-center mb-4 mt-5">
+                    {{ $sebaran->fragment('sebaran-alumni')->links('frontend.partials.pagination') }}
+                </div>
+            @endif
+
         </div>
     </section>
     @endif
@@ -154,8 +165,19 @@
                 @endforeach
             </div>
 
+            {{-- PAGINATION KIPRAH --}}
+            @if($kiprah->hasPages())
+                <div class="text-center mb-4 mt-5">
+                    {{ $kiprah->fragment('kiprah-alumni')->links('frontend.partials.pagination') }}
+                </div>
+            @endif
+
         </div>
     </section>
     @endif
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/alumni.js') }}"></script>
+@endpush
