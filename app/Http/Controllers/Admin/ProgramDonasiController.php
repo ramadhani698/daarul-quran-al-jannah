@@ -71,6 +71,11 @@ class ProgramDonasiController extends Controller
     {
         $data = $request->validated();
 
+        // Program umum selalu aktif; penutupan dilakukan lewat kategorinya
+        if ($program_donasi->is_umum) {
+            $data['is_active'] = true;
+        }
+
         if ($request->hasFile('gambar')) {
             if ($program_donasi->gambar && Storage::disk('public')->exists($program_donasi->gambar)) {
                 Storage::disk('public')->delete($program_donasi->gambar);
@@ -87,6 +92,13 @@ class ProgramDonasiController extends Controller
 
     public function toggleActive(ProgramDonasi $program_donasi)
     {
+        if ($program_donasi->is_umum) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Program umum tidak dapat dinonaktifkan.',
+            ], 422);
+        }
+
         $program_donasi->update(['is_active' => ! $program_donasi->is_active]);
 
         return response()->json([

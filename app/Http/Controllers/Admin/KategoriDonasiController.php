@@ -51,15 +51,18 @@ class KategoriDonasiController extends Controller
     public function update(KategoriDonasiRequest $request, KategoriDonasi $kategori_donasi)
     {
         $data = $request->validated();
+        $iconLama = null;
 
         if ($request->hasFile('icon')) {
-            if ($kategori_donasi->icon && Storage::disk('public')->exists($kategori_donasi->icon)) {
-                Storage::disk('public')->delete($kategori_donasi->icon);
-            }
+            $iconLama = $kategori_donasi->icon;
             $data['icon'] = $request->file('icon')->store('kategori-donasi', 'public');
         }
 
         $kategori_donasi->update($data);
+
+        if ($iconLama && Storage::disk('public')->exists($iconLama)) {
+            Storage::disk('public')->delete($iconLama);
+        }
 
         return redirect()
             ->route('admin.kategori-donasi.index')
@@ -68,23 +71,27 @@ class KategoriDonasiController extends Controller
 
     public function destroy(KategoriDonasi $kategori_donasi)
     {
+        $icon = $kategori_donasi->icon;
+
         try {
-            if ($kategori_donasi->icon && Storage::disk('public')->exists($kategori_donasi->icon)) {
-                Storage::disk('public')->delete($kategori_donasi->icon);
-            }
-
             $kategori_donasi->delete();
-
-            return redirect()
-                ->route('admin.kategori-donasi.index')
-                ->with('success', 'Kategori donasi berhasil dihapus.');
         } catch (\Throwable $e) {
-            // Menangkap exception dari guard di model (data masih dipakai program)
-            // maupun error tak terduga lain (misal constraint FK level database)
+            // Guard di model (masih dipakai program) atau constraint FK database
+            report($e);
+
             return redirect()
                 ->route('admin.kategori-donasi.index')
                 ->with('error', 'Kategori tidak dapat dihapus karena masih memiliki program donasi terkait.');
         }
+
+        // File fisik baru dihapus setelah record benar-benar terhapus
+        if ($icon && Storage::disk('public')->exists($icon)) {
+            Storage::disk('public')->delete($icon);
+        }
+
+        return redirect()
+            ->route('admin.kategori-donasi.index')
+            ->with('success', 'Kategori donasi berhasil dihapus.');
     }
 
     public function toggleActive(KategoriDonasi $kategori_donasi)
