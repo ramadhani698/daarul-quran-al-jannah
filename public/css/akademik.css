@@ -19,12 +19,12 @@
   box-sizing: border-box;
 }
 
-body {
+/* body {
   font-family: "Poppins", sans-serif;
   color: var(--main-text);
   background-color: #f9fafb;
   line-height: 1.6;
-}
+} */
 
 html {
   scroll-padding-top: 80px;
@@ -259,6 +259,7 @@ html {
 ============================= */
 .main-content {
   padding: 3rem 5%;
+  background-color: #f9fafb;
 }
 
 /* =============================

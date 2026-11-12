@@ -44,11 +44,17 @@ class GoogleSheetService
             return [];
         }
 
-        return Cache::remember('data-pendaftaran-sheet', now()->addMinutes(10), function () {
-            $response = $this->service->spreadsheets_values->get($this->spreadsheetId, $this->range);
+        try {
+            return Cache::remember('data-pendaftaran-sheet', now()->addMinutes(10), function () {
+                $response = $this->service->spreadsheets_values->get($this->spreadsheetId, $this->range);
 
-            return $response->getValues() ?? [];
-        });
+                return $response->getValues() ?? [];
+            });
+        } catch (\Throwable $e) {
+            report($e);
+
+            return [];
+        }
     }
 
     public function clearCache(): void

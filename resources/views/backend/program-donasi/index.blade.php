@@ -88,6 +88,7 @@
                                         class="form-check-input toggle-active"
                                         data-id="{{ $program->id }}"
                                         {{ $program->is_active ? 'checked' : '' }}
+                                        @if ($program->is_umum) disabled title="Program umum selalu aktif" @endif
                                     >
                                 </div>
                             </td>
@@ -154,13 +155,14 @@
                         'X-CSRF-TOKEN': csrfToken,
                     },
                 })
-                    .then(res => {
-                        if (!res.ok) throw new Error('Gagal update status');
-                        return res.json();
+                    .then(async res => {
+                        const data = await res.json().catch(() => ({}));
+                        if (!res.ok) throw new Error(data.message || 'Gagal update status');
+                        return data;
                     })
-                    .catch(() => {
+                    .catch(err => {
                         this.checked = previousState;
-                        alert('Gagal mengubah status program.');
+                        alert(err.message || 'Gagal mengubah status program.');
                     });
             });
         });

@@ -125,16 +125,28 @@
             @endif
         </div>
 
+        @php $umum = isset($program) && $program->is_umum; @endphp
+
         <div class="form-check form-switch mb-3">
+            @if ($umum)
+                {{-- checkbox disabled tidak ikut terkirim, jadi kirim lewat hidden --}}
+                <input type="hidden" name="is_active" value="1">
+            @endif
             <input
                 type="checkbox"
                 name="is_active"
                 id="is_active"
                 class="form-check-input"
                 value="1"
-                {{ old('is_active', $program->is_active ?? true) ? 'checked' : '' }}
+                {{ $umum || old('is_active', $program->is_active ?? true) ? 'checked' : '' }}
+                {{ $umum ? 'disabled' : '' }}
             >
-            <label for="is_active" class="form-check-label">Aktif ditampilkan di halaman donasi publik</label>
+            <label for="is_active" class="form-check-label">
+                Aktif ditampilkan di halaman donasi publik
+                @if ($umum)
+                    <span class="text-muted small">(program umum selalu aktif)</span>
+                @endif
+            </label>
         </div>
 
         @if (isset($program) && $program->is_umum)
