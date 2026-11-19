@@ -279,7 +279,7 @@
 
                         <div class="modal-body">
 
-                            <p>{!! nl2br(e($ekskul->description)) !!}</p>
+                            <p>{!! clean($ekskul->description) !!}</p>
 
                             @if ($ekskul->galleries->isNotEmpty())
                                 <div class="text-center">
