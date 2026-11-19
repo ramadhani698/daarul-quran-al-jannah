@@ -53,7 +53,7 @@
                 </header>
 
                 <div class="berita-article-body">
-                    {!! nl2br(e($berita->konten)) !!}
+                    {!! clean($berita->konten) !!}
                 </div>
 
                 {{-- Share & Navigasi --}}
